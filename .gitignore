@@ -1,0 +1,9 @@
+*.smc
+*.sfc
+*.srm
+*.bsz
+*.bst
+*.zs*
+other/*
+*/other/*
+*.html
