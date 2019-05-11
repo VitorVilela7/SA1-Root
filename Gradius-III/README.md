@@ -4,6 +4,27 @@ Gradius 3 is a classic shooting game made by Konami.
 This SA-1 Root pretty much all slowdown it originally had and reduces
 the overall loading time. However it makes it incrediblely super difficult.
 
+## How to Patch
+
+Download the latest Gradius III .bps patch file available on the Releases tab.
+You can patch it either using [beat](https://www.romhacking.net/utilities/893/)
+or [FLIPS](https://smwc.me/s/11474), common .bps patchers.
+
+You can also patch the .asm files directly using
+[Asar](https://github.com/RPGHacker/asar).
+
+It works with both American and Japanese version of Gradius III.
+
+Expected checksums after patching:
+
+### JPN Version:
+* CRC32: DDCDCDC7
+* SHA256: C3D216FB5A27DEFCC2E739D2035F8EC296825CD12B7BA879DFC655C6B4FD786D
+
+### USA Version:
+* CRC32: A43603BA
+* SHA256: D58E86F265AD6B2D46051B4AA64B07B47F68FADEB7B961CB0C1DB908FD8D65BC
+
 ## Technical details
 
 * Remapping mode: Full
