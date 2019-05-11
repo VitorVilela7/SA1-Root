@@ -6,7 +6,9 @@ the overall loading time. However it makes it incrediblely super difficult.
 
 ## How to Patch
 
-Download the latest Gradius III .bps patch file available on the Releases tab.
+Download the latest Gradius III .bps patch file available on the
+[Releases](https://github.com/VitorVilela7/SA1-Root/releases) tab.
+
 You can patch it either using [beat](https://www.romhacking.net/utilities/893/)
 or [FLIPS](https://smwc.me/s/11474), common .bps patchers.
 
