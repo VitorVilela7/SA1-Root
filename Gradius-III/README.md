@@ -1,16 +1,16 @@
 # SA-1 Root: Gradius III
 
 Gradius 3 is a classic shooting game made by Konami.
-This SA-1 Root pretty much all slowdown it originally had and reduces
-the overall loading time. However it makes it incrediblely super difficult.
+This SA-1 Root reduces most of the orignal game's slowdown and lag and minimizes
+the overall loading time. As a side effect, the game is now much more difficult.
 
 ## How to Patch
 
 Download the latest Gradius III .bps patch file available on the
 [Releases](https://github.com/VitorVilela7/SA1-Root/releases) tab.
 
-You can patch it either using [beat](https://www.romhacking.net/utilities/893/)
-or [FLIPS](https://smwc.me/s/11474), common .bps patchers.
+You can patch it using [beat](https://www.romhacking.net/utilities/893/)
+or [FLIPS](https://smwc.me/s/11474), both common .bps patchers.
 
 You can also patch the .asm files directly using
 [Asar](https://github.com/RPGHacker/asar).
@@ -42,7 +42,7 @@ of data structures.
 
 SA-1 was used for the maximum time possible and a callback system was used
 for the SA-1 CPU calling back the SNES CPU when running on routines that
-it can't handle (APU uploads and PPU updates most of the time).
+it can't handle (APU uploads and PPU updates mostly).
 
 ## RAM remap
 
