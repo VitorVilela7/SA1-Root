@@ -56,7 +56,7 @@ and optimizing it. SA-1 Pack is intended to be a full featured pack that
 not just enables SA-1 and accelerate the game, but also improve the game
 engine and provide additonal tools for ROM hacking.
 
-For example, Super Mario World's SA-1 Pack doubles the maximum phisical
+For example, Super Mario World's SA-1 Pack doubles the maximum physical
 amount of allowed enemies on screen and includes different shared
 routines for additional SA-1 features.
 
