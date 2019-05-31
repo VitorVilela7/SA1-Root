@@ -5,7 +5,7 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.0              by Vitor Vilela
+    Version 1.1              by Vitor Vilela
 ```
 
 SA-1 Root is the base pack of patches for activating and using SA-1
