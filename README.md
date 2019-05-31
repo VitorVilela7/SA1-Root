@@ -12,7 +12,7 @@ SA-1 Root is the base pack of patches for activating and using SA-1
 on many different games. SA-1 Root currently has patches for the
 following games:
 
-* [Gradius III](Gradius-III) v1.4
+* [Gradius III](Gradius-III) v1.5
 * Super Mario World ([SA-1 Pack only](https://github.com/VitorVilela7/SA1-Pack))
 
 What is it?
@@ -84,6 +84,7 @@ Useful Links
 
 Useful documents for understanding SA-1:
 
+* SA-1 article at SnesLab: https://www.sneslab.net/wiki/
 * SNES Dev. Book: https://www.romhacking.net/docs/226/
 * SA-1 Registers: https://wiki.superfamicom.org/sa-1-registers
 * SA-1 Doc: https://github.com/VitorVilela7/SNES-SA-1-doc/
@@ -94,3 +95,5 @@ You can contact make though the following links:
 
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
+* My personal blog: https://vilela.sneslab.net/
+
