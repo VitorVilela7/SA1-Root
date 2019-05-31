@@ -243,10 +243,10 @@ ORG $00829E
 	LDA.W #sa1_code
 	JSR $1D00
 	BRA +
-	NOP #8
+	NOP #12
 +
 ;print pc
-warnpc $0082B2
+warnpc $0082B6
 
 ;          CODE_008806: LDA.B $34                            ;008806|A534    |000034;  
 ;                       PHX                                  ;008808|DA      |      ;  
