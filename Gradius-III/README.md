@@ -1,6 +1,7 @@
 # SA-1 Root: Gradius III
 
 Gradius 3 is a classic shooting game made by Konami.
+
 This SA-1 Root reduces most of the orignal game's slowdown and lag and minimizes
 the overall loading time. As a side effect, the game is now much more difficult.
 
@@ -20,12 +21,16 @@ It works with both American and Japanese version of Gradius III.
 Expected checksums after patching:
 
 ### JPN Version:
-* CRC32: DDCDCDC7
-* SHA256: C3D216FB5A27DEFCC2E739D2035F8EC296825CD12B7BA879DFC655C6B4FD786D
+* CRC32: E86AA13A
+* SHA256: 17B9368F84E0C1D5173B80C6B53BB2DD5D4B6A608F6260CA37649F8045F8197F
 
 ### USA Version:
-* CRC32: A43603BA
-* SHA256: D58E86F265AD6B2D46051B4AA64B07B47F68FADEB7B961CB0C1DB908FD8D65BC
+* CRC32: D8EC2C36
+* SHA256: 334119D66AE790D420C90A77DBC2EC2921E8A78B8A3F1222BDA6ACDB4922BEEB
+
+## Compatibility
+
+It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan).
 
 ## Technical details
 
@@ -43,6 +48,9 @@ of data structures.
 SA-1 was used for the maximum time possible and a callback system was used
 for the SA-1 CPU calling back the SNES CPU when running on routines that
 it can't handle (APU uploads and PPU updates mostly).
+
+Because of the strategy used,
+**128 kB (1024 Kbit) of BW-RAM is required to the game run** correctly.
 
 ## RAM remap
 
