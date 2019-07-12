@@ -479,6 +479,10 @@ macro add_callback(addr)
 		JMP do_callback
 endmacro
 
+; Save/load hi-score
+ORG $0081A6 : JSR load_hi_score
+ORG $008D5B : JMP save_hi_score
+
 ORG $00F9FC
 sa1_boost:
 	TSC
@@ -700,10 +704,33 @@ sa1_reset:
 	PHB
 	LDA #$0000                         ;00805F|A90000  |      ;  
 	STA $402000                        ;008062|8F00207E|7E2000;  
-	LDA #$5FFD                         ;008066|A9FD5F  |      ;  
 	LDX #$2000                         ;008069|A20020  |      ;  
 	TXY                                  ;00806C|9B      |      ;  
 	INY                                  ;00806D|C8      |      ;  
+
+; Hi-score is stored in the middle of this block, so we don't want to overwrite it
+	LDA $4061F8	; Validate hi-score checksum
+	EOR #$FFFF
+	CMP $4061FC	; If hi-score checksum fails, zero hi-score
+	BNE .reset_hi_score
+	LDA $4061FA
+	EOR #$FFFF
+	CMP $4061FE	; If hi-score is valid, don't zero it
+	BEQ .keep_hi_score
+.reset_hi_score
+	LDA #$5FFE
+	bra .hi_score_check_done
+.keep_hi_score
+	LDA #$41F6
+	MVN $40,$40
+	LDA #$0000
+	STA $406200
+	LDA #$1DFE
+	LDX #$6200
+	TXY
+	INY
+.hi_score_check_done
+
 	MVN $40,$40                          ;00806E|547E7E  |      ;  
 	LDA #$7FFF                         ;008073|A9FF7F  |      ;  
 	STA $2000
@@ -768,6 +795,26 @@ cb_spec_00AF74:
 cb_spec_00AFA5:
 	LDA #$AFA5
 	JMP do_callback
+
+load_hi_score:
+	LDA $4061F8
+	STA $401F40
+	LDA $4061FA
+	STA $401F42
+	RTS
+
+save_hi_score:
+	LDA $401F40
+	STA $4061F8
+	EOR #$FFFF
+	STA $4061FC
+	LDA $401F42
+	STA $4061FA
+	EOR #$FFFF
+	STA $4061FE
+	PLY
+	PLX
+	RTL
 
 print pc
 warnpc $00FFC0
