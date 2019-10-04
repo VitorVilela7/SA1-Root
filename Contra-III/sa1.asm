@@ -1893,8 +1893,8 @@ mul_hack_3:
 	
 mul_hack_4:
 	STX $2253
-	LDX #$00
-	STX $2254
+	LDY #$00
+	STY $2254
 	LDA $D4
 	JML $02B30B
 	
