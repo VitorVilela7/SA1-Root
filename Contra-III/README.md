@@ -1,4 +1,5 @@
 # SA-1 Root: Contra III
+Version 1.0, released 2019-10-04
 
 Contra III: The Alien Wars is the third Contra game made by Konami and an amazing
 cinematic shooting game.

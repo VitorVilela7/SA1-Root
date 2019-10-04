@@ -1,4 +1,5 @@
 # SA-1 Root: Gradius III
+Version 1.5, released 2019-05-31
 
 Gradius 3 is a classic shooting game made by Konami.
 
