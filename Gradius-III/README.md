@@ -11,10 +11,13 @@ Download the latest Gradius III .bps patch file available on the
 [Releases](https://github.com/VitorVilela7/SA1-Root/releases) tab.
 
 You can patch it using [beat](https://www.romhacking.net/utilities/893/)
-or [FLIPS](https://smwc.me/s/11474), both common .bps patchers.
+or [FLIPS](https://sneslab.net/tools/floating.zip), both common .bps patchers.
 
 You can also patch the .asm files directly using
 [Asar](https://github.com/RPGHacker/asar).
+
+For more information on how to apply ROM patches, see this SnesLab
+article: https://sneslab.net/wiki/How_to_apply_ROM_patches
 
 It works with both American and Japanese version of Gradius III.
 
