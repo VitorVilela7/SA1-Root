@@ -5,29 +5,31 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.1              by Vitor Vilela
+    Version 1.2              by Vitor Vilela
 ```
 
-SA-1 Root is the base pack of patches for activating and using SA-1
-on many different games. SA-1 Root currently has patches for the
-following games:
+SA-1 Root is a project for enabling and accelerating games using the SA-1 chip.
+It's a pack of patches that optimizes the game to the maximum possible keeping
+high hardware compatibility and keeping most of the game aspects intact.
 
+So far the following games are available:
+* [Contra III](Contra-III) v1.0
 * [Gradius III](Gradius-III) v1.5
 * Super Mario World ([SA-1 Pack only](https://github.com/VitorVilela7/SA1-Pack))
 
 What is it?
 ===========
 
-SA-1 is a co-processor used on some special SNES games, made to work together
-with the Super NES CPU and enhance its processing speed, graphics and memory.
+SA-1 (Super Accelerator) is a co-processor included on some SNES games cartridges.
+It is made to work together with the Super NES CPU and used to enhance its
+processing speed, graphics and memory.
 
-With its base 10.74 MHz clock, the SA-1 CPU is four times faster than the
-normal SNES CPU processing. The SA-1 CPU and SNES CPU also runs
-simultaneously, which can result in five times faster processing over game with
-a standard cart setup. With that much power, the Super Accelerator System (SAS)
-can be used to process game engines much faster than the normal, allowing more
-sprites to be processed at once, more in-game effects, faster loading and much
-more.
+With its 10.74 MHz clock, the SA-1 CPU is four times faster than the normal SNES
+CPU processing. The SA-1 CPU and SNES CPU also runs simultaneously, which can
+result in up to five times faster processing over a game with no enhancement chips.
+Using that power, the Super Accelerator System (SAS) can be used to process game
+engines much faster than the normal, allowing more sprites to be processed at once,
+more in-game effects, faster loading and much more.
 
 SA-1 Root not just activates the co-processor, but also modifies a good part of
 the game engine to use and explore the chip features, which gives an extreme
@@ -73,7 +75,8 @@ Credits
 
 SA-1 Root wouldn't be that awesome without help from these people:
 
-* indcsion (additional testing)
+* indcsion (Gradius III testing)
+* Erivando_BR (Contra III testing)
 * Vitor Vilela (crazy author that did most of the patches)
 * You (for using it :D)
 
@@ -84,7 +87,7 @@ Useful Links
 
 Useful documents for understanding SA-1:
 
-* SA-1 article at SnesLab: https://www.sneslab.net/wiki/
+* SA-1 article at SnesLab: https://www.sneslab.net/wiki/SA-1
 * SNES Dev. Book: https://www.romhacking.net/docs/226/
 * SA-1 Registers: https://wiki.superfamicom.org/sa-1-registers
 * SA-1 Doc: https://github.com/VitorVilela7/SNES-SA-1-doc/
@@ -93,6 +96,7 @@ Useful documents for understanding SA-1:
 
 You can contact make though the following links:
 
+* My Website: https://www.sneslab.net/
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
 * My personal blog: https://vilela.sneslab.net/
