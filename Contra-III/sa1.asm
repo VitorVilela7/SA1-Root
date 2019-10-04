@@ -514,6 +514,10 @@ endmacro
 
 pushpc
 
+!enable_boost = 1
+
+if !enable_boost = 1
+
 org $8223
 	JSL.L boost_1
 	BRA +
@@ -541,6 +545,8 @@ org $842F
 +
 print pc
 warnpc $844D
+
+endif
 
 org $00BE05
 	JML swap_cpu_ppu_load
