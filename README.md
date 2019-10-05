@@ -76,7 +76,7 @@ Credits
 SA-1 Root wouldn't be that awesome without help from these people:
 
 * indcsion (Gradius III testing)
-* Erivando_BR (Contra III testing)
+* Erivando_BR (Contra III testing, Contra III trace logs)
 * Vitor Vilela (crazy author that did most of the patches)
 * You (for using it :D)
 
