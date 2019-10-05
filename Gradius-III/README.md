@@ -70,3 +70,22 @@ Because of the strategy used,
 
 * ``$0000-$1FFF`` -> ``$6000-$7FFF``
 * ``$7E:0000-$7F:FFFF`` -> ``$40:0000-$41:FFFF``
+
+## Credits
+
+Contra III - SA-1 Root wouldn't be that awesome without help from these people:
+
+* indcsion (testing)
+* slidelljohn (bug reports and extra help) 
+* Vitor Vilela (crazy author that did most of the patches)
+* You (for using it :D)
+
+## Contacting me
+
+You can contact me though the following links:
+
+* My Website: https://www.sneslab.net/
+* My Github profile: https://github.com/VitorVilela7
+* My Twitter profile: https://twitter.com/HackerVilela
+* My Patreon: https://www.patreon.com/vitorvilela
+* My personal blog: https://vilela.sneslab.net/

@@ -77,6 +77,9 @@ SA-1 Root wouldn't be that awesome without help from these people:
 
 * indcsion (Gradius III testing)
 * Erivando_BR (Contra III testing, Contra III trace logs)
+* Jeffrey (Contra III testing)
+* kccheng (Contra III testing)
+* slidelljohn (Gradius III bug reports and extra help) 
 * Vitor Vilela (crazy author that did most of the patches)
 * You (for using it :D)
 
@@ -92,12 +95,12 @@ Useful documents for understanding SA-1:
 * SA-1 Registers: https://wiki.superfamicom.org/sa-1-registers
 * SA-1 Doc: https://github.com/VitorVilela7/SNES-SA-1-doc/
 
-#### Personal
+#### Contacting me
 
-You can contact make though the following links:
+You can contact me though the following links:
 
 * My Website: https://www.sneslab.net/
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
+* My Patreon: https://www.patreon.com/vitorvilela
 * My personal blog: https://vilela.sneslab.net/
-
