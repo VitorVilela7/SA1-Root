@@ -779,6 +779,40 @@ boost_3: ;top-down view?
 	RTL
 	
 pushpc
+;	Line 402:                        JSL.L CODE_80E3DA                    ;808394|22DAE300|00E3DA;  
+;	Line 407:                        JSL.L CODE_80E464                    ;80839E|2264E400|00E464;  
+
+org $008394
+	JSL status_player_1
+
+org $00E464
+	JSL status_player_2
+
+pullpc
+	
+status_player_1:
+	TSX
+	CPX #$3700
+	BCS .already_sa1
+	LDA.w #$00E3DA
+	LDY.w #$00E3DA>>16
+	JSR $1D00
+	RTL
+.already_sa1
+	JML $00E3DA
+	
+status_player_2:
+	TSX
+	CPX #$3700
+	BCS .already_sa1
+	LDA.w #$00E464
+	LDY.w #$00E464>>16
+	JSR $1D00
+	RTL
+.already_sa1
+	JML $00E464
+	
+pushpc
 
 macro original_1()
 CODE_80E3E0:
