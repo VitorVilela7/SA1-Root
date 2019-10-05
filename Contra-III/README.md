@@ -8,7 +8,7 @@ This SA-1 Root removes all slowdown present on the original game and drastically
 reduces the loading times. It also saves the high scores and settings.
 
 Special thanks to Erivando_BR for sending me the SA-1 Collection trace log files
-of Contra III, which made this optimizatoin patch possible to happen.
+of Contra III, which made this optimization patch possible to happen.
 
 ## How to Patch
 
