@@ -785,7 +785,7 @@ pushpc
 org $008394
 	JSL status_player_1
 
-org $00E464
+org $00839E
 	JSL status_player_2
 
 pullpc

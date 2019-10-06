@@ -1,5 +1,5 @@
 # SA-1 Root: Contra III
-Version 1.0, released 2019-10-04
+Version 1.1, released 2019-10-05
 
 Contra III: The Alien Wars is the third Contra game made by Konami and an amazing
 cinematic shooting game.
@@ -38,8 +38,8 @@ Expected checksums:
 * SHA256: A93EA87FC835C530B5135C5294433D15EEF6DBF656144B387E89AC19CF864996
 
 #### After patching
-* CRC32: 15E767E9
-* SHA256: B91FEF50E2F40EC26B08FC93053195463E77B80C214350297F46C187DE06D9A1
+* CRC32: 9005D3A1
+* SHA256: 573ABEBEE9EFF9A73F7B51AF803346893F7BD8D5F8D82152D978ABCD0C2BD2C4
 
 ## Compatibility
 
@@ -76,6 +76,7 @@ Contra III - SA-1 Root wouldn't be that awesome without help from these people:
 * Erivando_BR (testing and trace logs)
 * Jeffrey (testing)
 * kccheng (testing)
+* Rodzilla97 (bug report)
 * Vitor Vilela (patch author)
 * You (for using it :D)
 

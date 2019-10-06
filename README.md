@@ -5,7 +5,7 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.2              by Vitor Vilela
+    Version 1.3              by Vitor Vilela
 ```
 
 SA-1 Root is a project for enabling and accelerating games using the SA-1 chip.
@@ -13,7 +13,7 @@ It's a pack of patches that optimizes the game to the maximum possible keeping
 high hardware compatibility and keeping most of the game aspects intact.
 
 So far the following games are available:
-* [Contra III](Contra-III) v1.0
+* [Contra III](Contra-III) v1.1
 * [Gradius III](Gradius-III) v1.5
 * Super Mario World ([SA-1 Pack only](https://github.com/VitorVilela7/SA1-Pack))
 
@@ -79,7 +79,8 @@ SA-1 Root wouldn't be that awesome without help from these people:
 * Erivando_BR (Contra III testing, Contra III trace logs)
 * Jeffrey (Contra III testing)
 * kccheng (Contra III testing)
-* slidelljohn (Gradius III bug reports and extra help) 
+* Rodzilla97 (Contra III bug report)
+* slidelljohn (Gradius III bug report and extra help) 
 * Vitor Vilela (crazy author that did most of the patches)
 * You (for using it :D)
 
