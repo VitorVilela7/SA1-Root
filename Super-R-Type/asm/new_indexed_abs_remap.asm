@@ -822,12 +822,12 @@ org $03A99B ; LDY.W $0000,X                        ;03A99A|BC0000  |040000;
 ;	dw $6000 
 ;org $03C933 ; LDA.W $0000,Y                        ;03C932|B90000  |040000;
 ;	dw $6000 
-org $03CA37 ; LDA.W $0000,Y                        ;03CA36|B90000  |040000;
-	dw $6000 ; Analysis Missing! - OK
-org $03CABB ; LDA.W $0000,Y                        ;03CABA|B90000  |040000;
-	dw $6000 ; Analysis Missing! - OK
-org $03CB50 ; LDA.W $0000,Y                        ;03CB4F|B90000  |040000;
-	dw $6000 ; Analysis Missing! - OK
+;org $03CA37 ; LDA.W $0000,Y                        ;03CA36|B90000  |040000;
+;	dw $6000 ; Analysis Missing! - Fixed
+;org $03CABB ; LDA.W $0000,Y                        ;03CABA|B90000  |040000;
+;	dw $6000 ; Analysis Missing! - Fixed
+;org $03CB50 ; LDA.W $0000,Y                        ;03CB4F|B90000  |040000;
+;	dw $6000 ; Analysis Missing! - Fixed
 ;org $03CF0D ; LDA.W $0000,Y                        ;03CF0C|B90000  |040000;
 ;	dw $6000 
 ;org $03CFB8 ; LDA.W $0000,Y                        ;03CFB7|B90000  |040000;
