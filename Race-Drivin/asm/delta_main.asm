@@ -61,6 +61,12 @@
 
 !gravity_timer_dt	= $3138
 
+!fc_counter		= $313A		; 16-bit
+
+!fb_counter		= $313C		; 16-bit
+
+!fps_value		= $61FE		; 16-bit
+
 !tmp_mul		= $40
 !tmp_mul2		= $3E
 
@@ -158,18 +164,38 @@ get_time_passed:
 	SEP #$21
 	LDA !counter
 	SBC !previous
-	BEQ get_time_passed	
+	BEQ get_time_passed
+	TAY
 	STA $2251
 	STZ $2252
 	REP #$20
 	LDA.w #!magic_delta
 	STA $2253
-	NOP
+	CLC
 	LDA $2306
 	STA !passed16
 	
 	LDA !counter
 	STA !previous
+	
+	; frame rate calculation
+	TYA
+	ADC !fc_counter
+	STA !fc_counter
+	INC !fb_counter
+	
+	CMP.w #60
+	BCC +
+	CMP.w #120
+	BCC ++
+	LDA.w #60
+++	SEC
+	SBC.w #60
+	STA !fc_counter
+	LDA !fb_counter
+	STZ !fb_counter
+	STA !fps_value
++
 	
 	RTS
 	
@@ -212,7 +238,6 @@ org $00B4A1
 	
 	LDA.w #!fb_steps
 	STA $F8
-
 	RTL
 
 warnpc $00B4D2
