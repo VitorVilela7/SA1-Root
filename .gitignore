@@ -7,3 +7,6 @@
 other/*
 */other/*
 *.html
+*.bin
+*.bp
+*.spc
