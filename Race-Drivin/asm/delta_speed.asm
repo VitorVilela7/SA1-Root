@@ -110,5 +110,13 @@ apply_speed_minus4:
 apply_speed:
 	%delta_muladd(!speed_dt)
 	ADC $68
+	BPL +
+	LDA #$0000
++	STA $68
+	
+	; always update rpm together
+	JSL apply_rpm_new
+	
+	LDA $68
 	RTL
 	

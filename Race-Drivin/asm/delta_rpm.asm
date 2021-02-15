@@ -12,6 +12,23 @@ pushpc
 ; RPM value is reset at 00A5E7 and 00A843
 ; which is taken care by delta_speed
 
+; pitch gets acute too fast
+org $00F296	
+	ADC.W #$0004
+
+org $00F2B2
+	ADC.W #$0004
+	
+org $00F2B6
+	STA $6256
+	LSR #2
+	CLC
+	ADC $6256
+	STA $6256
+	RTL
+	
+warnpc $00F2CE
+
 org $009843
 	LDA #$0004
 	JSL apply_rpm
@@ -45,9 +62,167 @@ org $00E05A
 ;;print pc
 warnpc $00E066
 
+org $0097BA
+	db $90 ;change BNE to BCS
+	
+; no RPM limit
+org $009902
+	NOP #3
+	
+; recalculate RPM on gear change
+org $0097C7
+	JSL apply_rpm_new
+	NOP #6
+	
+org $009812
+	JSL apply_rpm_new
+	NOP #6
+	
+org $0098B5
+	TXA
+	ASL
+	TAX
+	
+	LDA $6254
+	CMP #$0016
+	BCC rotation_ok
+	LDA $68
+	CMP.l max_gear_speed,x
+	BCC +
+	DEC
++	STA $68
+	BRA rotation_ok;max_rotation
+	
+org $0098E1
+max_rotation:
+
+org $0098E4
+rotation_ok:
+
 pullpc
 
+; use current gear and time passed for calculation.
+
+;resync 0097C7
+
+; 0-3
+gear_table:
+	dw $7FFF,$4000,$2000,$1000
+	
+math round off
+
+rpm_gear_ratio:	
+	dw $5000/3.60*3.60
+	dw $5000/3.60*1.88
+	dw $5000/3.60*1.23
+	dw $5000/3.60*0.82
+	
+max_gear_speed:
+	;dw 38-7, 54-7, 71-7, 127
+	;dw 127,127,127,127
+	dw 25, 41, 58, 127 ;82
+
+math round on
+	
+; no RPM is applied, value
+; stays constant within speed.
 apply_rpm:
-	%delta_muladd(!rpm_dt)
+	LDA $6254
+	RTL
+
+apply_rpm_new:
+	PHX
+	
+	LDA $624A
+	ASL
+	TAX
+	LDA $68
+	CMP.l max_gear_speed,x
+	BMI +
+	DEC
+	STA $68
++
+
+	CPX #$0003*2
+	BEQ +
+	LDA $6254
+	CMP #$0017
+	BCC +
+	DEC $68
+	BPL +
+	STZ $68
++
+
+	
+	LDA !gradual_speed
+	ASL #2
+	CLC
+	ADC !gradual_speed
+	CLC
+	ADC !gradual_speed
+	CLC
+	ADC !gradual_speed
+	CLC
+	ADC $68
+	LSR : ADC #$0000
+	LSR : ADC #$0000
+	LSR : ADC #$0000
+	STA !gradual_speed
+
+	SEC
+	SBC #$0008
+	BPL +
+	LDA #$0001
++	ASL #2
+	STA $2251
+	LDA.l rpm_gear_ratio,x
+	STA $2253
+	LDA $2308
+	BPL +
+	LDA #$0000
++	CLC
+	ADC #$0001
+	CMP #$001A
+	BCC +
+	; maximum rotation reached.
+	LDA #$001A
++	STA $6254
+
+	PLX
+	RTL
+
+apply_rpm_old:
+	ASL #3 ;compensation
+	STA !tmp_mul
+	
+	PHX
+	LDA $624A
+	ASL
+	TAX
+	LDA.l gear_table,x
+	STA $2251
+	PLX
+	LDA !passed16
+	LSR
+	STA $2253
+	NOP
+	LDA $2308
+	STA !tmp_mul2
+	
+	
+	LDA !tmp_mul
+	STA $2251
+	LDA !tmp_mul2
+	STA $2253
+	LDA !rpm_dt
+	CLC
+	ADC $2306
+	STA !rpm_dt
+	LDA #$0000
+	BIT !tmp_mul2
+	BPL +
+	LDA !tmp_mul
++	ADC $2308
+	CLC
 	ADC $6254
 	RTL

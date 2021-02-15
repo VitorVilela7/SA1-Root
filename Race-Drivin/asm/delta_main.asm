@@ -61,11 +61,15 @@
 
 !gravity_timer_dt	= $3138
 
-!fc_counter		= $313A		; 16-bit
+!fc_counter		= $313A
 
-!fb_counter		= $313C		; 16-bit
+!fb_counter		= $313C
 
-!fps_value		= $61FE		; 16-bit
+!gradual_speed	= $313E
+
+!old_gear		= $3140
+
+!fps_value		= $61FE
 
 !tmp_mul		= $40
 !tmp_mul2		= $3E
@@ -196,6 +200,8 @@ get_time_passed:
 	STZ !fb_counter
 	STA !fps_value
 +
+
+	JSL apply_rpm_new
 	
 	RTS
 	
