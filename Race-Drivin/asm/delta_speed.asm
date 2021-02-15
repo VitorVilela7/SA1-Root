@@ -90,20 +90,22 @@ pullpc
 
 apply_speed_table:
 	LDA $EC27,Y
+	LSR
 	EOR #$FFFF
 	INC
 	BRA apply_speed
 
 apply_speed_plus4:
-	LDA.w #$0004
+	LDA.w #$0004/2
 	BRA apply_speed
 	
 apply_speed_minus12:
-	LDA.W #-$000C
+	LDA.W #-$000C/2 ;-$0C
 	BRA apply_speed
 
+; maximum rpm?
 apply_speed_minus4:
-	LDA.w #-$0004
+	LDA.w #-$0004/4 ;-$04
 
 apply_speed:
 	%delta_muladd(!speed_dt)
