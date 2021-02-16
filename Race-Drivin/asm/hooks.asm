@@ -19,6 +19,31 @@ macro create_callback(addr)
 		JML $<addr>
 endmacro
 
+macro create_callback_async_nocopy(addr)
+	!created_<addr> = 1
+
+	callback_<addr>:
+		%wait_snes_16()
+		%call_snes_a(.my_code)
+		RTL
+		
+	.my_code
+		JML $<addr>
+endmacro
+
+macro create_callback_nocopy(addr)
+	!created_<addr> = 1
+
+	callback_<addr>:
+		%wait_snes_16()
+		%call_snes_a(.my_code)
+		%wait_snes_16()
+		RTL
+		
+	.my_code
+		JML $<addr>
+endmacro
+
 macro make_callback(addr, call)
 	pushpc
 		assert read1(<addr>+0) == $22
