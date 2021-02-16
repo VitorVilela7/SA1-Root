@@ -77,7 +77,8 @@ Credits
 SA-1 Root wouldn't be that awesome without help from these people:
 
 * indcsion (Gradius III testing)
-* Erivando_BR (Contra III testing, Contra III trace logs and Super R-Type trace logs)
+* Erivando_BR (Contra III testing, Contra III trace logs, Super R-Type trace logs and Race Drivin' trace logs)
+* Ethan Tabor (Race Drivin' testing and bug report)
 * Jeffrey (Contra III testing)
 * kccheng (Contra III and Super R-Type testing)
 * Rodzilla97 (Contra III bug report)
