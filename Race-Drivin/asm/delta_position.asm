@@ -99,7 +99,7 @@ copyback_pos_hi_deltas:
 pushpc
 
 org $00AB1B
-	JSL $00AB53
+	JSR $AB53
 	LDA !x_dt
 	SEC
 	SBC !tmp_delta1
@@ -114,21 +114,21 @@ org $00AB1B
 warnpc $00AB37
 
 org $00AB37
-	JSL multiply_without_delta
+	JSR $AB53
+	LDA !x_dt
+	CLC
+	ADC !tmp_delta1
+	STA !x_dt
+	LDA $5C
+	ADC $90
+	STA $5C
+	
+	LDA !y_dt
+	SEC
+	JML finish_2
+warnpc $00AB53
 
 pullpc
-
-multiply_without_delta:
-	LDA !passed16
-	PHA
-	LDA #$FFFF
-	STA !passed16
-	
-	JSL $00AB53
-	
-	PLA
-	STA !passed16
-	RTL
 
 finish_1:
 	ADC !tmp_delta2
@@ -145,6 +145,22 @@ finish_1:
 	SBC $94
 	STA $60
 	RTL
+	
+finish_2:
+	SBC !tmp_delta2
+	STA !y_dt
+	LDA $5E
+	SBC $92
+	STA $5E
+	
+	LDA !z_dt
+	CLC
+	ADC !tmp_delta3
+	STA !z_dt
+	LDA $60
+	ADC $94
+	STA $60
+	RTL
 
 pushpc
 
@@ -158,7 +174,7 @@ org $00ABA5
 	JSR multiply_then_delta3
 	
 org $00ABAA
-	RTL
+	RTS
 
 ; use the now unused space for multiplication
 org $00C541
