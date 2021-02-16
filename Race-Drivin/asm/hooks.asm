@@ -1,8 +1,4 @@
 
-pushpc
-	
-pullpc
-
 ; Parallel the work between SA-1 and SNES
 initialize_system:
 	JSR init_time
@@ -233,59 +229,6 @@ pullpc
 %make_callback($008A16, "008637")
 
 pushpc
-;org $00AB67 : JSR here
-;org $00AB9C : JSR here
-;org $00C48A : JSR here
-;org $00C499 : JSR here		
-
-;org $00B9B5
-;	LDA.W #$03E8
-	
-;org $00BACD
-;	LDA.W #$03E8
-
-;org $00B9B0
-;db $80
-
-;org $00B9C3
-;NOP #6
-
-;org $00C5F4
-;	JSR here2
-;	NOP
-;org $00A9AF : ADC.W #$0005 ?
-;org $00B8BD : ADC.W #$0005 ;afeta rampas
-;org $00BAE4 : ADC.W #$0005 ;afeta projeção
-
-;org $00BBF4
-;ADC #$0010
-
-;org $00BBFC
-;ADC #$000C
-
-;isso aqui deixa os carros 'externos' enormes
-;org $00BAB8
-;	NOP #(2+3+2)*3
-
-;isso aqui deixa o campo de visao mais achatado
-;horizontalmente
-;org $00BADC
-;	NOP
-
-;mais achatado verticalmente
-;org $00BAE7
-;	NOP
-
-;literalmente um zoom
-;org $00BAEF
-;NOP
-
-org $00AB70
-	;JSR alt
-org $00AB83
-	;JSR alt
-org $00ABA5
-	;JSR alt
 
 org $00C5F2
 	LDA $3A
@@ -316,7 +259,7 @@ org $00C52F
 	LDA $2306
 	LDX $2308
 	RTS
-print pc
+;print pc
 warnpc $00C541
 ;warnpc $00C5F2
 
@@ -349,23 +292,5 @@ org $00C690
 warnpc $00C6C0
 org $00C6C0
 .here
-
-;a região 00973A parece lidar só com a tela de titulo
-
-;wait frames
-;org $00973A
-;NOP #4
-
-;atualiza paineis, velocimetro, etc.
-;org $00973E
-;NOP #4
-
-;nao ficou claro	
-;org $009742
-;NOP #4
-
-;?
-;org $00977D
-;NOP #4
 
 pullpc
