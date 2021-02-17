@@ -49,6 +49,7 @@ reset_speed_rpm:
 	%reset_speed()
 	STZ $6254
 	STZ !rpm_dt
+	STZ !gradual_speed
 	RTL
 
 reset_speed:

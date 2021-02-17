@@ -19,12 +19,17 @@ org $00F296
 org $00F2B2
 	ADC.W #$0004
 	
-org $00F2B6
+org $00F2AE
+	LDA !rpm_dt
+	ADC #$0400
 	STA $6256
 	LSR #2
-	CLC
 	ADC $6256
-	STA $6256
+	CMP #$2000
+	BCC +
+	LSR
+	ADC #$2000/2
++	STA $6256
 	RTL
 	
 warnpc $00F2CE
@@ -140,18 +145,20 @@ apply_rpm_new:
 	CMP.l max_gear_speed,x
 	BMI +
 	DEC
+	BMI +
 	STA $68
+	BRA ++
 +
 
 	CPX #$0003*2
-	BEQ +
+	BEQ ++
 	LDA $6254
 	CMP #$0017
-	BCC +
+	BCC ++
 	DEC $68
-	BPL +
+	BPL ++
 	STZ $68
-+
+++
 
 	
 	LDA !gradual_speed
@@ -187,6 +194,21 @@ apply_rpm_new:
 	; maximum rotation reached.
 	LDA #$001A
 +	STA $6254
+
+	; internal RPM for pitch
+	LDA $2307
+	INC
+	BPL +
+	LDA #$0000
++	CMP #$2000
+	BCC +
+	LSR
+	ADC #$1000
++	CMP #$3000
+	BCC +
+	LSR
+	ADC #$1800
++	STA !rpm_dt
 
 	PLX
 	RTL
