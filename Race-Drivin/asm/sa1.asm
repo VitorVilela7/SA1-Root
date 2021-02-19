@@ -1,9 +1,9 @@
 ; SA-1 Root
 ; for Race Drivin (USA)
 
-; $3080-$3082	SA-1 -> SNES pointer
-; $3083			SA-1 -> SNES flag
-; $3084-$3085	Run game flag.
+; $3180-$3182	SA-1 -> SNES pointer
+; $3183			SA-1 -> SNES flag
+; $3184-$3185	Run game flag.
 
 sa1rom
 
@@ -51,7 +51,7 @@ org $00F48E
         REP #$20
         LDA #$01FF
         TCS
-        LDA #$6000
+        LDA #$3000
         TCD
 		
         LDA #$0020
@@ -93,7 +93,7 @@ org $00F48E
         STA $2202
         
         ; initial I-RAM value
-        STZ $3000
+        STZ $00
         
         ; start SA-1 CPU
         STZ $2200				; Enable and reset SA-1.

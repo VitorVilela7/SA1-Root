@@ -9,13 +9,13 @@ macro create_callback(addr)
 
 	callback_<addr>:
 		%wait_snes_16()
-		STA $30F0
+		STA $31F0
 		%call_snes_a(.my_code)
 		%wait_snes_16()
 		RTL
 		
 	.my_code
-		LDA $30F0
+		LDA $31F0
 		JML $<addr>
 endmacro
 
@@ -85,14 +85,14 @@ macro set_register_a(addr, reg)
 		
 		set_<reg>:
 			%wait_snes_8()
-			STA $30F0
+			STA $31F0
 			%call_snes(".snes")
 			%wait_ack_8()
 			RTS
 			
 		.snes
 			SEP #$20
-			LDA $30F0
+			LDA $31F0
 			STA.w $<reg>
 			RTL
 	endif

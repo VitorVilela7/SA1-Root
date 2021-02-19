@@ -14,7 +14,7 @@
 ; only irq and brk are affected.
 macro interrupt(addr)
 	org <addr>-2
-		LDA #$6000
+		LDA #$3000
 		TCD
 		PHK
 		PLB

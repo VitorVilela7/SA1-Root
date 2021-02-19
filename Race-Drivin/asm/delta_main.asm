@@ -302,7 +302,7 @@ org $00F420
 	PHX
 	PHY
 	PHD
-	LDA #$6000
+	LDA #$3000
 	TCD
 	
 	LDA $0C

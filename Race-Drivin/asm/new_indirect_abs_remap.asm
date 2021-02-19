@@ -3,9 +3,9 @@
 
 ;============== REMAPPER FOR $0076 -> $6076
 org $00CB90 ; JMP.W ($0076)                        ;00CB8F|6C7600  |000076;
-	dw $6076 ; Analysis Missing!
+	dw $3076 ; Analysis Missing!
 org $00CC0B ; JMP.W ($0076)                        ;00CC0A|6C7600  |000076;
-	dw $6076 ; Analysis Missing!
+	dw $3076 ; Analysis Missing!
 
 ;; SA-1 TLR - The Last Remapper - Analysis results:
 

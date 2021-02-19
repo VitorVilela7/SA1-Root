@@ -10,7 +10,7 @@ sa1_reset:
     
     REP #$38
 
-    LDA #$6000
+    LDA #$3000
     TCD
     LDA #$37FF
     TCS
@@ -43,17 +43,17 @@ sa1_reset:
     STA $2209
 
     ; clear I-RAM via MVN
-    STZ $3000
+    STZ $00
     REP #$30
     LDA #$07FE
-    LDX #$3000
-    LDY #$3001
+    LDX #$0000
+    LDY #$0001
     MVN $00,$00
     SEP #$20
     
     ; signal S-CPU we're done
     LDA #$AA
-    STA $3000
+    STA $00
 	
 	; principle: we'll never use division or
 	; cumulative sum. Otherwise, you must restore

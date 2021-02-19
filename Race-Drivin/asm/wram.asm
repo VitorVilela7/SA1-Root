@@ -14,28 +14,20 @@ wram_loop:
     ; prevent I-RAM bus conflict exaustion
     NOP #4
 	
-	; Authorize SA-1 to execute
-	LDA $3084
-	AND #$80
-	BEQ +
-	TSB $4C
-	STZ $3084
-+
-	
-    BIT $3083
+    BIT $3183
     BVC wram_loop
     
     ; Acknowledge that SNES started running
     LDA #$80
-    TSB $3083
+    TSB $3183
 	
 	REP #$20
     
     PHK
     PEA.w .return-1
-    JML [$3080]
+    JML [$3180]
     
 .return
 	SEP #$20
-    STZ $3083
+    STZ $3183
     BRA wram_loop

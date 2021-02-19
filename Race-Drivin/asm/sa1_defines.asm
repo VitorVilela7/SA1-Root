@@ -38,8 +38,17 @@ macro remap_indirect(orig, addr, reg, reg_byte)
     endif
     
     org <addr>
-        LD<reg>.W #$6000|<orig>
-
+		if <orig> < $0100
+			assert <orig> >= $0000
+			assert <orig> <= $00FF
+			
+			LD<reg>.W #$3000|<orig>
+		else
+			assert <orig> >= $0100
+			assert <orig> <= $1FFF
+			
+			LD<reg>.W #$6000|<orig>
+		endif
 endmacro
 
 macro remap_directpage(orig, addr)
@@ -78,9 +87,9 @@ macro remap_indirect_jump(dest, addr)
         assert read2(<addr>+1) == <dest>
     endif
     
-    !res #= <dest>|$6000
+    !res #= <dest>|$3000
     
-    assert !res >= $6000 && !res <= $7FFF
+    assert !res >= $3000 && !res <= $37FF
     
     org <addr>
         JMP.W [!res]
@@ -91,46 +100,46 @@ endmacro
 ; assume A 8-bit and XY 16-bit
 macro call_snes(ptr)
     LDY.w #<ptr>
-    STY $3080
+    STY $3180
     LDY.w #<ptr>>>16|$4000
-    STY $3082
+    STY $3182
 endmacro
 
 macro call_snes_a(ptr)
     LDA.w #<ptr>
-    STA $3080
+    STA $3180
     LDA.w #<ptr>>>16|$4000
-    STA $3082
+    STA $3182
 endmacro
 
 macro call_snes_x(ptr)
     LDX.w #<ptr>
-    STX $3080
+    STX $3180
     LDX.w #<ptr>>>16|$4000
-    STX $3082
+    STX $3182
 endmacro
 
 macro wait_ack_8()
 	?wait:
-		BIT $3083
+		BIT $3183
 		BPL ?wait
 endmacro
 
 macro wait_ack_16()
 	?wait:
-		BIT $3082
+		BIT $3182
 		BPL ?wait
 endmacro
 
 macro wait_snes_8()
 	?wait:
-		BIT $3083
+		BIT $3183
 		BVS ?wait
 endmacro
 
 macro wait_snes_16()
 	?wait:
-		BIT $3082
+		BIT $3182
 		BVS ?wait
 endmacro
 
@@ -146,9 +155,9 @@ macro execute_routine_snes_cpu_b0(ptr, routine)
 		%wait_snes_16()
 		;just for ?snes_code macro label work
 		LDY.w #?snes_code
-		STY $3080
+		STY $3180
 		LDY.w #?snes_code>>16|$4000
-		STY $3082
+		STY $3182
 		%wait_ack_16()
 		PLY
 		RTS
@@ -157,4 +166,3 @@ macro execute_routine_snes_cpu_b0(ptr, routine)
 		JSR <routine>
 		RTL
 endmacro
-
