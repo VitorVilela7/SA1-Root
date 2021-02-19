@@ -67,7 +67,9 @@
 
 !gradual_speed	= $313E
 
-!old_gear		= $3140
+!sprite_timer_dt = $3140
+
+!sprite_timer	= $3142
 
 !fps_value		= $61FE
 
@@ -109,8 +111,10 @@ macro delta_mul(dest)
 	LDA !passed16
 	STA $2253
 	ASL
-	LDA $2306
-	STA <dest>
+	if <dest> == 0
+		LDA $2306
+		STA <dest>
+	endif
 	LDA $2308
 	BCC ?skip
 	CLC
