@@ -228,3 +228,35 @@ org $00C25E
 	++
 
 pullpc
+
+; the average algorithm
+
+pushpc
+
+macro average(a,b,d1,d2)
+	CLC
+	LDA.b $10+<a>
+	ADC.b $10+<b>
+	TAX
+	
+	LDA.b $00+<a>
+	ADC.b $00+<b>
+	CMP #$8000
+	ROR
+	STA.b <d1>
+	
+	TXA
+	ROR
+	STA.b <d2>
+endmacro
+
+org $00CEF7
+	%average($46,$40,$BE,$D6)
+	%average($48,$42,$C0,$D8)
+	%average($4A,$44,$C2,$DA)
+	RTS
+	
+;print pc
+warnpc $00CF4F
+
+pullpc
