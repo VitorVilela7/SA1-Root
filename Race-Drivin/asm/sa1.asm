@@ -143,6 +143,7 @@ org $018E02
 	incsrc "delta_wheel.asm"
 	incsrc "delta_rpm.asm"	
 	incsrc "delta_radical.asm"
+	incsrc "delta_sprites.asm"
 
 print "FX Area: $", pc
 warnpc $028000
