@@ -1,33 +1,7 @@
 sa1_nmi:
 sa1_cop:
-    STP
-	
 sa1_irq:
-	REP #$30
-	PHA
-	PHX
-	PHY
-	PHD
-	PHB
-	PHK
-	PLB
-	LDA #$0000
-	TCD
-	
-	-
-	BIT $3090
-	BMI -
-	
-	LDA #$F0
-	STA $220B
-	
-	REP #$30
-	PLB
-	PLD
-	PLY
-	PLX
-	PLA
-	RTI
+    STP
 
 sa1_reset:
     SEI
