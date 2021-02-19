@@ -17,6 +17,7 @@ adjust_sprite_timer:
 	LDA $28
 	BNE +
 	STZ !sprite_timer
+	STZ !sprite_timer_dt
 	BRA ++
 +
 	LDA #$0001
