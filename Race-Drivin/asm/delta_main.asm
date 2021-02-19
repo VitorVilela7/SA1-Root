@@ -188,6 +188,7 @@ get_time_passed:
 	
 	; frame rate calculation
 	TYA
+	AND #$00FF
 	ADC !fc_counter
 	STA !fc_counter
 	INC !fb_counter
