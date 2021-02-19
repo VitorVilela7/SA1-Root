@@ -135,3 +135,112 @@ org $008F0E
 	LDY.w #!replay_slots
 
 pullpc
+
+; Special code to handle Autocross Track
+
+; initialization
+%create_callback_nocopy("00DB87")
+%create_callback_nocopy("00DBC3")
+
+%make_callback($008DBB, "00DB87")
+%make_callback($00D91D, "00DBC3")
+
+!autocross_bank = $7E
+!autocross_shadow = $7EA000
+
+!shadow_final_ptr = $1800
+
+pushpc
+
+org $00DB9C
+	LDX $6234
+	SEP #$20
+	LDA.b #!autocross_bank
+	PHA
+	PLB
+	REP #$20
+;print pc
+warnpc $00DBA7
+
+org $00DBA9
+	STA.w !autocross_shadow+0,x
+
+org $00DBAE
+	STA.w !autocross_shadow+2,x
+
+org $00DBB3
+	STA.w !autocross_shadow+4,x
+	
+; instead of copying the same value till
+; the end of the buffer, point which position
+; to read forever.
+
+org $00DBB6
+	STX !shadow_final_ptr
+	PLB
+	RTL
+	
+pullpc
+	
+%create_callback_nocopy("00DBE1")
+%make_callback($00D930, "00DBE1")
+	
+pushpc
+
+org $00DC02
+	LDX $6234
+	SEP #$20
+	LDA.b #!autocross_bank
+	PHA
+	PLB
+	REP #$20
+;print pc
+warnpc $00DC0D
+	
+org $00DC0F
+	STA.w !autocross_shadow+0,x
+	
+org $00DC14
+	STA.w !autocross_shadow+2,x
+	
+org $00DC19
+	STA.w !autocross_shadow+4,x
+	
+org $00DC25
+	PLB
+	BCS +
+	STX $6234
++
+;print pc
+warnpc $00DC2B
+
+pullpc
+
+%create_callback_nocopy("00DC2C")
+%make_callback($00D924, "00DC2C")
+
+pushpc
+
+org $00DC31
+	LDX $6234
+	CPX.w !shadow_final_ptr
+	BCC +
+	LDX.w !shadow_final_ptr
++	LDA.l !autocross_shadow+0,x
+	STA $6E12
+	LDA.l !autocross_shadow+2,x
+	STA $6E16
+	LDA.l !autocross_shadow+4,x
+	STA $6E18
+	LDA #$99E0
+	STA $6E1E
+	JML shadow_finish_load
+;print pc
+warnpc $00DC5D-1
+
+pullpc
+
+shadow_finish_load:
+	LDA #$000A
+	STA $6E20
+	RTL
