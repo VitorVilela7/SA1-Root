@@ -108,12 +108,6 @@ pullpc
 
 ; use current gear and time passed for calculation.
 
-;resync 0097C7
-
-; 0-3
-gear_table:
-	dw $7FFF,$4000,$2000,$1000
-	
 math round off
 
 rpm_gear_ratio:	
@@ -211,40 +205,4 @@ apply_rpm_new:
 +	STA !rpm_dt
 
 	PLX
-	RTL
-
-apply_rpm_old:
-	ASL #3 ;compensation
-	STA !tmp_mul
-	
-	PHX
-	LDA $624A
-	ASL
-	TAX
-	LDA.l gear_table,x
-	STA $2251
-	PLX
-	LDA !passed16
-	LSR
-	STA $2253
-	NOP
-	LDA $2308
-	STA !tmp_mul2
-	
-	
-	LDA !tmp_mul
-	STA $2251
-	LDA !tmp_mul2
-	STA $2253
-	LDA !rpm_dt
-	CLC
-	ADC $2306
-	STA !rpm_dt
-	LDA #$0000
-	BIT !tmp_mul2
-	BPL +
-	LDA !tmp_mul
-+	ADC $2308
-	CLC
-	ADC $6254
 	RTL
