@@ -73,7 +73,7 @@ Because of the strategy used,
 
 ## Credits
 
-Contra III - SA-1 Root wouldn't be that awesome without help from these people:
+Gradius III - SA-1 Root wouldn't be that awesome without help from these people:
 
 * indcsion (testing)
 * slidelljohn (bug reports and extra help) 
