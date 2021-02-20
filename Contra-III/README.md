@@ -43,7 +43,7 @@ Expected checksums:
 
 ## Compatibility
 
-It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan).
+It works on both real hardware (sd2snes) and emulators (Snes9x and bsnes/higan). However, there's known issues with the game running on the SA-1 cart which will be fixed on a future update.
 
 ## Technical details
 
