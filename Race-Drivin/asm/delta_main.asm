@@ -140,25 +140,6 @@ macro delta_muladd(dest)
 	CLC
 endmacro
 
-macro delta_speed_muladd(dest)
-	STA !tmp_mul
-	STA $2251
-	%push_delta_add_speed()
-	;LDA !passed16
-	STA $2253
-	LDA <dest>
-	CLC
-	ADC $2306
-	STA <dest>
-	LDA #$0000
-	BIT !passed16
-	BPL ?skip
-	LDA !tmp_mul
-?skip:
-	ADC $2308
-	CLC
-endmacro
-
 init_time:
 	STZ !counter
 	;STZ !previous
@@ -214,14 +195,6 @@ pushpc
 	
 ; code below is related to NMI
 ; and frame buffering.
-
-;wait frames-game
-org $0094BB
-	;NOP #4
-
-;wait frames-title
-org $00973A
-	;NOP #4
 
 ; rewrite buffer system
 org $00B49C
@@ -440,6 +413,5 @@ nmi_part2:
 	JMP transfer_framebuffer
 	
 warnpc $0082D2
-
 
 pullpc
