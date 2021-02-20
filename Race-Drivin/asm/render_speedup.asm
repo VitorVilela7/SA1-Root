@@ -250,13 +250,31 @@ macro average(a,b,d1,d2)
 	STA.b <d2>
 endmacro
 
+; faster version, given the game never
+; uses 32-bit math.
+macro average16(a,b,d1)
+	CLC
+	LDA.b $00+<a>
+	ADC.b $00+<b>
+	CMP #$8000
+	ROR
+	STA.b <d1>
+endmacro
+
 org $00CEF7
-	%average($46,$40,$BE,$D6)
-	%average($48,$42,$C0,$D8)
-	%average($4A,$44,$C2,$DA)
+	;%average($46,$40,$BE,$D6)
+	;%average($48,$42,$C0,$D8)
+	;%average($4A,$44,$C2,$DA)
+	;RTS
+	
+average_fast:
+	%average16($46,$40,$BE)
+	%average16($48,$42,$C0)
+	%average16($4A,$44,$C2)
 	RTS
 	
 ;print pc
 warnpc $00CF4F
+
 
 pullpc
