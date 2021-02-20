@@ -34,7 +34,7 @@ endmacro
 %skip_spin($D208)
 
 ; demo load
-%skip_spin($8EE9)
+%add_spin($8EE9)
 
 ; collision
 %add_spin($A5E3)
@@ -61,8 +61,8 @@ endmacro
 %skip_spin($96D3)
 
 ; title screen, key pressed
-%skip_spin($9548)
-%skip_spin($9558)
+%add_spin($9548)
+%add_spin($9558)
 
 ; car select load 2
 %skip_spin($8A80)
