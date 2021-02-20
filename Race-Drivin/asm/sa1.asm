@@ -138,6 +138,7 @@ org $018E02
 	incsrc "commit_buffer.asm"
 	incsrc "shadow_replay.asm"
 	incsrc "render_speedup.asm"
+	incsrc "title_screen.asm"
 
 	incsrc "delta_position.asm"
 	incsrc "delta_speed.asm"

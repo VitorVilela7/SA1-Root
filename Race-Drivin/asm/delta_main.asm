@@ -71,6 +71,10 @@
 
 !sprite_timer	= $3142
 
+!demo_dt		= $3144
+
+!demo_ctl		= $3146
+
 !fps_value		= $61FE
 
 !tmp_mul		= $40
