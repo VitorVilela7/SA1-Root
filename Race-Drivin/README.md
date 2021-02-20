@@ -54,6 +54,15 @@ Expected checksums:
 It works on both real hardware (FXPAK or SA-1 cart) and emulators
 (Snes9x and bsnes/higan/ares).
 
+## Known issues
+
+* The title screen demo may not play correctly on some emulators or systems,
+because of the Delta-Based Frame Correction limitations.
+* Some places of the game may not render correctly, because of the engine
+limitations.
+* Some sections of Super Stunt Track may reduce frame rate to 12 FPS instead
+of 30 FPS.
+
 ## Technical details
 
 * Remapping mode: partial
