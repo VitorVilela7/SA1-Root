@@ -105,7 +105,7 @@ Useful Links
 Useful documents for understanding SA-1:
 
 * SA-1 article at SnesLab: https://www.sneslab.net/wiki/SA-1
-* SNES Dev. Book: https://www.romhacking.net/docs/226/
+* SNES Dev. Book: https://www.romhacking.net/documents/226/
 * SA-1 Registers: https://wiki.superfamicom.org/sa-1-registers
 * SA-1 Doc: https://github.com/VitorVilela7/SNES-SA-1-doc/
 
