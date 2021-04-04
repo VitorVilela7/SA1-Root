@@ -49,6 +49,7 @@ pullpc
 reset_speed_rpm:
 	%reset_speed()
 	STZ $6254
+	STZ !rpm_copy
 	STZ !rpm_dt
 	RTL
 

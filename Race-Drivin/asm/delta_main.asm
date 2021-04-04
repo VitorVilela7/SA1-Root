@@ -85,6 +85,8 @@ endif
 
 !demo_ctl		= $3146
 
+!rpm_copy		= $3148
+
 !fps_value		= $61FE
 
 !tmp_mul		= $40

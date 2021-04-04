@@ -9,6 +9,11 @@
 
 pushpc
 
+; Read a copy of the RPM value, which doesn't
+; suffers from modifications
+org $00E069
+	LDA !rpm_copy
+
 ; RPM value is reset at 00A5E7 and 00A843
 ; which is taken care by delta_speed
 
@@ -188,6 +193,7 @@ apply_rpm_new:
 	; maximum rotation reached.
 	LDA #$001A
 +	STA $6254
+	STA !rpm_copy
 
 	; internal RPM for pitch
 	LDA $2307
