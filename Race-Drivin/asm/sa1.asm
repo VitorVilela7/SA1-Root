@@ -1,6 +1,9 @@
 ; SA-1 Root
 ; for Race Drivin (USA)
 
+; Set value to 0 for optimized Race Drivin' speed and 1 for close-as-original speed.
+!origin	= 0
+
 ; $3180-$3182	SA-1 -> SNES pointer
 ; $3183			SA-1 -> SNES flag
 ; $3184-$3185	Run game flag.
@@ -138,7 +141,14 @@ org $018E02
 	incsrc "commit_buffer.asm"
 	incsrc "shadow_replay.asm"
 	incsrc "render_speedup.asm"
-	incsrc "title_screen.asm"
+	
+	; Origin-specific adjusts
+	if !origin == 1
+		; slower version requires different title screen demo timings.
+		incsrc "title_screen_origin.asm"
+	else
+		incsrc "title_screen.asm"
+	endif
 
 	incsrc "delta_position.asm"
 	incsrc "delta_speed.asm"

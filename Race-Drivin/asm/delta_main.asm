@@ -3,10 +3,20 @@
 
 ; Constants
 
-; Defined by round(65536/(60/5.361557))*2*0.8
-; The values was based on the average instant FPS
-; + an % adjust to feel more realistic.
-!magic_delta 	= $249A
+if !origin == 1
+	; Defind by round(65536/(60/4.772052))
+	; Solely based on average frame rate of the
+	; title screen section.
+	
+	!magic_delta 	= $145C
+
+else
+	; Defined by round(65536/(60/5.361557)*2*0.8)
+	; The values was based on the average instant FPS
+	; + an % adjust to feel more realistic.
+	
+	!magic_delta 	= $249A
+endif
 
 ; How many frame buffer steps
 !fb_steps		= 2
