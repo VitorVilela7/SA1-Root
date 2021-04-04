@@ -1,10 +1,21 @@
 # SA-1 Root: Gradius III
-Version 1.5, released 2019-05-31
+Version 1.6, released 2021-04-04
 
 Gradius 3 is a classic shooting game made by Konami.
 
 This SA-1 Root reduces most of the orignal game's slowdown and lag and minimizes
 the overall loading time. As a side effect, the game is now much more difficult.
+
+## Base and Origin versions
+
+There is two versions available. One is the base SA-1 Root patch, where it
+activates the SA-1 chip and accelerates the game to the maximum. The BPS files
+are Gradius-III-JPN.bps and Gradius-III-USA.bps
+
+Another version uses GuyPerfect's spdwn add-on that reduces the speeds of most
+of the Gradius III bosses, making it closer to the original game speed, but still
+without slowdown being used. The BPS files are Gradius-III-Origin-JPN.bps and
+Gradius-III-Origin-USA.bps
 
 ## How to Patch
 
@@ -22,25 +33,35 @@ article: https://sneslab.net/wiki/How_to_apply_ROM_patches
 
 It works with both American and Japanese version of Gradius III.
 
-Expected checksums:
+### Required ROM checksums
 
-### JPN Version:
-#### Before patching
+#### Japan (NTSC-J) version
 * CRC32: BCA9AB02
 * SHA256: 47DDF3204DC99421F6029EAAED4EAA1A6660B5DDF2F07A5C2CD5879C70CA9043
 
-#### After patching
+#### USA (NTSC-U) version
+* CRC32: CD973979
+* SHA256: 93DA752A0C76167D0907EFA832367E5D14AAB8E835B864F345C386071A9AF71
+
+### Checksums after patching - SA-1 Root
+
+#### Japan (NTSC-J) version
 * CRC32: E86AA13A
 * SHA256: 17B9368F84E0C1D5173B80C6B53BB2DD5D4B6A608F6260CA37649F8045F8197F
 
-### USA Version:
-#### Before patching:
-* CRC32: CD973979
-* SHA256: 93DA752A0C76167D0907EFA832367E5D14AAB8E835B864F345C386071A9AF718
-
-#### After patching
+#### USA (NTSC-U) version
 * CRC32: D8EC2C36
 * SHA256: 334119D66AE790D420C90A77DBC2EC2921E8A78B8A3F1222BDA6ACDB4922BEEB
+
+### Checksums after patching - SA-1 Root + Origin
+
+#### Japan (NTSC-J) version
+* CRC32: 3A58A5FF
+* SHA256: C6E4DA68BEE3E2E56D82F7E2E037F9066D24D07A49123752D4977C962E8FC170
+
+#### USA (NTSC-U) version
+* CRC32: 45611E5E
+* SHA256: 9FC69E7B15660E4CE1526A79DCE780440FCEF39EDFCAB5AC2A97AE1999BEF557
 
 ## Compatibility
 
@@ -75,6 +96,7 @@ Because of the strategy used,
 
 Gradius III - SA-1 Root wouldn't be that awesome without help from these people:
 
+* GuyPerfect (Gradius III speed reduction patch add-on)
 * indcsion (testing)
 * slidelljohn (bug reports and extra help) 
 * Vitor Vilela (crazy author that did most of the patches)
