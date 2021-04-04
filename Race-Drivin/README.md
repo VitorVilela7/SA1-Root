@@ -1,5 +1,5 @@
 # SA-1 Root: Race Drivin'
-Version 1.0, released 2021-02-20
+Version 1.1, released 2021-04-04
 
 Race Drivin' is a car driving game made by Atari Games and ported to the
 SNES by Toy Headquarters. It features a first person driving game, with
@@ -21,6 +21,18 @@ Special thanks to Erivando_BR for sending me the SA-1 Collection trace
 log files of Race Drivin', which was an important help during the
 disassembly process.
 
+## Base and Origin versions
+
+There is two versions available. One is the base SA-1 Root patch, where it
+installs the SA-1 chip + Delta-Based and brings optimal gameplay experience.
+Use the BPS file Race-Drivin-USA.bps to play this version.
+
+Another version uses changes the internal speed to make it as close as the
+original SNES version, which makes the game slower but still with the smooth
+30 FPS frame rate. It makes the controls harder, because they are now less
+sensisive compared to the base version. Use BPS Race-Drivin-Origin-USA.bps to
+play this version.
+
 ## How to Patch
 
 Download the latest Race Drivin' BPS patch file available on the
@@ -31,7 +43,8 @@ or [FLIPS](https://sneslab.net/tools/floating.zip), both common
 .bps patchers.
 
 You can also patch the .asm files directly using
-[Asar](https://github.com/RPGHacker/asar).
+[Asar](https://github.com/RPGHacker/asar). Check the !origin flag on sa1.asm
+before patching, if you want to the patch acts as "Origin" or "Base" speed.
 
 For more information on how to apply ROM patches, see this SnesLab
 article: https://sneslab.net/wiki/How_to_apply_ROM_patches
@@ -45,9 +58,13 @@ Expected checksums:
 * CRC32: C5BAB870
 * SHA256: DD0FEB78E2D5D81F59241BAF3BCA5E2EDAEBBE98F0AC860A4EB6D448718F1CA5
 
-#### After patching
-* CRC32: 2FDEE90D
-* SHA256: C7DC99F9177AA1288E4091B8378A500A0BD14849326CE02469697E17E7816F01
+#### After patching (base version)
+* CRC32: 23EAA97E
+* SHA256: 6CA9486BDF492228DCC75BA09A4364A6000EF96B0B63FB960F5F963FC906686B
+
+#### After patching (origin version)
+* CRC32: BB42A085
+* SHA256: 6890DC6D69D656775EF70A5A353CA3639DA119BECDBB488B05B1FF31A37E01D7
 
 ## Compatibility
 

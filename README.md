@@ -5,7 +5,7 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.6              by Vitor Vilela
+    Version 1.7              by Vitor Vilela
 ```
 
 SA-1 Root is a project for enabling and accelerating games using the SA-1 chip.
@@ -14,8 +14,8 @@ high hardware compatibility and keeping most of the game aspects intact.
 
 So far the following games are available:
 * [Contra III](Contra-III) v1.1
-* [Gradius III](Gradius-III) v1.5
-* [Race Drivin'](Race-Drivin) v1.0
+* [Gradius III](Gradius-III) v1.6
+* [Race Drivin'](Race-Drivin) v1.1
 * [Super R-Type](Super-R-Type) v1.1
 * Super Mario World ([SA-1 Pack only](https://github.com/VitorVilela7/SA1-Pack))
 
@@ -80,6 +80,7 @@ SA-1 Root wouldn't be that awesome without help from these people:
 * indcsion (Gradius III testing)
 * Erivando_BR (Contra III testing, Contra III trace logs, Super R-Type trace logs and Race Drivin' trace logs)
 * Ethan Tabor (Race Drivin' testing and bug report)
+* GuyPerfect (Gradius III speed reduction patch add-on)
 * Jeffrey (Contra III testing)
 * kccheng (Contra III and Super R-Type testing)
 * Rodzilla97 (Contra III bug report)
@@ -90,12 +91,12 @@ SA-1 Root wouldn't be that awesome without help from these people:
 Special thanks also for all my patrons from
 https://www.patreon.com/vitorvilela, specially for:
 
-* Alec
-* Christopher 
+* Christopher
 * Jake Mauer
 * gunmakuma
-* hyp36rmax
 * kccheng
+* PsychoFox
+* sam
 
 Useful Links
 ============
