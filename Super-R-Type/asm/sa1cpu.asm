@@ -18,6 +18,11 @@ sa1_reset:
     
     SEP #$30
     
+    ; Enable I-RAM write
+    LDA #$FF
+    STA $00222A
+
+    ; Set up DB, now that we can use the stack
     LDA #$04
     PHA
     PLB
@@ -27,8 +32,6 @@ sa1_reset:
     LDA #$80
     STA $2227
     STZ $2225
-    LDA #$FF
-    STA $222A
     
     LDA #$B0
     STA $220A

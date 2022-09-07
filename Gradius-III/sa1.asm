@@ -656,23 +656,23 @@ sa1_reset:
 	LDA #$6000				; \ Set Direct Page to $6000,
 	TCD					;  | Stack Pointer to $37FF and
 	LDA #$37FF				;  | Data Bank to current.
-	TCS					;  |
-	PHK					;  |
-	PLB					; /
+	TCS					; /
 						;
 	SEP #$30				; A/X/Y 8-bit
+
+	LDA #$FF				; \ Enable I-RAM write
+	STA $00222A				; /
 	
-	LDA #$01
-	PHA
-	PLB
+	LDA #$01				; \ Set up DB, now that we can use the stack
+	PHA					;  |
+	PLB					; /
+	
 						;
 	STZ $2230				; Reset SA-1 DMA settings.
 						;
-	LDA #$80				; \ Enable I-RAM and BW-RAM write
+	LDA #$80				; \ Enable BW-RAM write
 	STA $2227				;  |
-	STZ $2225				;  |
-	LDA #$FF				;  |
-	STA $222A				; /
+	STZ $2225				; /
 						;
 	LDA #$B0				; \ Enable IRQ from S-CPU
 	STA $220A				;  | Enable IRQ from DMA
