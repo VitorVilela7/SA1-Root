@@ -83,6 +83,7 @@ SA-1 Root wouldn't be that awesome without help from these people:
 * Ethan Tabor (Race Drivin' testing and bug report)
 * GuyPerfect (Gradius III speed reduction patch add-on)
 * Jeffrey (Contra III testing)
+* Jonas Quinn (SA-1 hardware bug report)
 * kccheng (Contra III and Super R-Type testing)
 * Rodzilla97 (Contra III bug report)
 * slidelljohn (Gradius III bug report and extra help) 
