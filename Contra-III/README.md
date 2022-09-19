@@ -1,5 +1,5 @@
 # SA-1 Root: Contra III
-Version 1.1, released 2019-10-05
+Version 1.2, released 2022-09-19
 
 Contra III: The Alien Wars is the third Contra game made by Konami and an amazing
 cinematic shooting game.
@@ -25,7 +25,7 @@ For more information on how to apply ROM patches, see this SnesLab
 article: https://sneslab.net/wiki/How_to_apply_ROM_patches
 
 It works only on the american version of Contra III. Contra Spirits and Super
-Probotector does not work because both games were recompiled and its codes are
+Probotector **does not** work because both games were recompiled and its codes are
 different compared to the american version. Depending on the demand I might
 do them eventually, but they will likely require the same amount of effort as
 a new game conversion.
@@ -38,12 +38,12 @@ Expected checksums:
 * SHA256: A93EA87FC835C530B5135C5294433D15EEF6DBF656144B387E89AC19CF864996
 
 #### After patching
-* CRC32: 9005D3A1
-* SHA256: 573ABEBEE9EFF9A73F7B51AF803346893F7BD8D5F8D82152D978ABCD0C2BD2C4
+* CRC32: FF3EE176
+* SHA256: 5D2A0ED336E2681D694395A2183D82BEDCAC93B612CBFB5F543DA80A001E861D
 
 ## Compatibility
 
-It works on both real hardware (sd2snes) and emulators (Snes9x and bsnes/higan). However, there's known issues with the game running on the SA-1 cart which will be fixed on a future update.
+It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan/ares).
 
 ## Technical details
 
@@ -88,5 +88,3 @@ You can contact me though the following links:
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
 * My Patreon: https://www.patreon.com/vitorvilela
-* My personal blog: https://vilela.sneslab.net/
-

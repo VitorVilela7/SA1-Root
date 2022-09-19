@@ -1,5 +1,5 @@
 # SA-1 Root: Gradius III
-Version 1.6, released 2021-04-04
+Version 1.7, released 2022-09-19
 
 Gradius 3 is a classic shooting game made by Konami.
 
@@ -46,26 +46,26 @@ It works with both American and Japanese version of Gradius III.
 ### Checksums after patching - SA-1 Root
 
 #### Japan (NTSC-J) version
-* CRC32: E86AA13A
-* SHA256: 17B9368F84E0C1D5173B80C6B53BB2DD5D4B6A608F6260CA37649F8045F8197F
+* CRC32: C6105027
+* SHA256: A844154BD3887386779E8B796EA9C4FE41715BC03B19C2DEB9B6D1F3AD642540
 
 #### USA (NTSC-U) version
-* CRC32: D8EC2C36
-* SHA256: 334119D66AE790D420C90A77DBC2EC2921E8A78B8A3F1222BDA6ACDB4922BEEB
+* CRC32: F696DD2B
+* SHA256: D5D5BFA8F694DF4524E1C5963D58E9F5857786C2BF46118152DED4C150A3D303
 
 ### Checksums after patching - SA-1 Root + Origin
 
 #### Japan (NTSC-J) version
-* CRC32: 3A58A5FF
-* SHA256: C6E4DA68BEE3E2E56D82F7E2E037F9066D24D07A49123752D4977C962E8FC170
+* CRC32: 7C2E0613
+* SHA256: 186EF215E7C6D18D907AAAB212542B013C69A9125EB4AFA383BBF3F5C4D5D402
 
 #### USA (NTSC-U) version
-* CRC32: 45611E5E
-* SHA256: 9FC69E7B15660E4CE1526A79DCE780440FCEF39EDFCAB5AC2A97AE1999BEF557
+* CRC32: 0317BDB2
+* SHA256: 942B4A3F9C7EC2C2EE187E0C435DD50EE3DBBBE0CDF07B74BD29199D6F833082
 
 ## Compatibility
 
-It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan).
+It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan/ares).
 
 ## Technical details
 
@@ -110,4 +110,3 @@ You can contact me though the following links:
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
 * My Patreon: https://www.patreon.com/vitorvilela
-* My personal blog: https://vilela.sneslab.net/

@@ -1,5 +1,5 @@
 # SA-1 Root: Super R-Type
-Version 1.1, released 2020-12-02
+Version 1.2, released 2022-09-19
 
 Super R-Type is a classic shooter game made by Irem, being kind of a upgrade from R-Type II.
 
@@ -34,8 +34,8 @@ Expected checksums:
 * SHA256: 05C7F6461209020785FBA33007E1830820AA44ADA4B1A6F991D936BF2335B15B
 
 #### After patching
-* CRC32: B50C346F
-* SHA256: 9F777F1284EB4CC8A7707B99F7473AFF80E50B33D0EE306B2193EB4AA5FC4CBA
+* CRC32: 0D73E7D3
+* SHA256: 292F295D44D0569A7954151AB74B28845361DF1E5C12EDBE4F519DA14E18A892
 
 ## Compatibility
 
@@ -85,5 +85,3 @@ You can contact me though the following links:
 * My Github profile: https://github.com/VitorVilela7
 * My Twitter profile: https://twitter.com/HackerVilela
 * My Patreon: https://www.patreon.com/vitorvilela
-* My personal blog: https://vilela.sneslab.net/
-
