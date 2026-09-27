@@ -185,6 +185,8 @@ update_display:
 	RTL
 	
 macro update_display(addr, cnt)
+	assert read3(<addr>+0) == $21008D || read3(<addr>+2) == $21008D
+
 	pushpc
 		org <addr>
 			JSL update_display
@@ -196,10 +198,13 @@ macro update_display(addr, cnt)
 	pullpc
 endmacro
 	
-%update_display($018006, 1)
-%update_display($01846D, 1)
-%update_display($018960, 1)
-%update_display($01896F, 1)
+if !screen_on_at_start
+	%update_display($018006, 1)
+endif
+
+%update_display(!update_display_a, 1)
+%update_display(!update_display_b, 1)
+%update_display(!update_display_c, 1)
 
 macro orig_code()
 	SEP #$20                             ;0187F4
@@ -214,11 +219,16 @@ endmacro
 
 pushpc
 
-org $0187FC
+assert read3(!update_display_2106+0) == $21008D
+assert read3(!update_display_2106+3) == $21069C
+
+org !update_display_2106
 	JSL update_display_2106
 	RTS
 	
-org $018AD1
+assert read3(!fade_in) == $21008D
+
+org !fade_in
 	NOP #3
 
 pullpc
@@ -257,16 +267,16 @@ macro update_display_2(addr)
 	pullpc
 endmacro
 
-%update_display_2($019888)
-%update_display_2($01B12F)
+%update_display_2(!update_display_2_a)
+%update_display_2(!update_display_2_b)
 %update_display_2($038006)
 %update_display_2($0380B7)
 %update_display_2($038196)
 %update_display_2($03823D)
 %update_display_2($038E42)
 %update_display_2($03927E)
-%update_display_2($04AB7B)
-%update_display_2($04ABB0)
+%update_display_2(!update_display_2_c)
+%update_display_2(!update_display_2_d)
 
 update_display_2:
 	STA $80
@@ -362,10 +372,13 @@ upload_layers:
 
 ; Handle mosaic
 pushpc
-	org $04ABE4
+	assert read3(!mosaic_a) == $21068D
+	assert read3(!mosaic_b) == $21068D
+
+	org !mosaic_a
 		JSR mosaic
 			
-	org $04AC16
+	org !mosaic_b
 		JSR mosaic
 	
 	org $04FFE0

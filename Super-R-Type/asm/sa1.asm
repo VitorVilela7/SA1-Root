@@ -14,6 +14,10 @@ if !strict == 1
     print "strict mode on"
 endif
 
+!region ?= usa
+
+incsrc "region/!region.asm"
+
 ; SA-1 ROM
 org $FFD5
     db $23,$35
@@ -35,10 +39,7 @@ org $008014
     REP #$30
 
 ; RAM remap files
-incsrc "new_discrete_abs_remap.asm"
-incsrc "new_indexed_abs_remap.asm"
-incsrc "new_indexed_long_remap.asm"
-incsrc "new_indirect_abs_remap.asm"
+incsrc "remap/!remap/remap.asm"
 incsrc "databank.asm"
 
 ; Change reset vector to initialize SA-1
