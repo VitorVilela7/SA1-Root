@@ -1,1 +1,4 @@
-rm srtype.sfc; cp srtype_base.sfc srtype.sfc && asar -Dstrict=1 sa1.asm srtype.sfc
+for region in usa eur; do
+	rm -f srtype_$region.sfc
+	cp srtype_base_$region.sfc srtype_$region.sfc && asar -Dstrict=1 -Dregion=$region sa1.asm srtype_$region.sfc
+done

@@ -1,5 +1,5 @@
 ; SA-1 Root
-; for Super R-Type (USA)
+; for Super R-Type
 
 ; $3080-$3082	SA-1 -> SNES pointer
 ; $3083			SA-1 -> SNES flag
@@ -14,6 +14,7 @@ if !strict == 1
     print "strict mode on"
 endif
 
+; usa or eur
 !region ?= usa
 
 incsrc "region/!region.asm"
