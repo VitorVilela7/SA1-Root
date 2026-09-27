@@ -228,8 +228,12 @@ org !update_display_2106
 	
 assert read3(!fade_in) == $21008D
 
-org !fade_in
-	NOP #3
+if !fade_in_same_frame
+	org !fade_in
+		NOP #3
+else
+	%update_display(!fade_in, 1)
+endif
 
 pullpc
 

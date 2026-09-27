@@ -1,0 +1,5 @@
+incsrc "new_discrete_abs_remap.asm"
+incsrc "new_indexed_abs_remap.asm"
+incsrc "new_indexed_long_remap.asm"
+incsrc "new_indirect_abs_remap.asm"
+incsrc "additions.asm"

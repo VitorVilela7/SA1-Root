@@ -14,7 +14,7 @@ if !strict == 1
     print "strict mode on"
 endif
 
-; usa or eur
+; usa, eur or jpn
 !region ?= usa
 
 incsrc "region/!region.asm"

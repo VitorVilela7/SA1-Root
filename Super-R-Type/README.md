@@ -1,5 +1,5 @@
 # SA-1 Root: Super R-Type
-Version 1.2, released 2022-09-19
+Version 1.3, released ????-??-??
 
 Super R-Type is a classic shooter game made by Irem, being kind of a upgrade from R-Type II.
 
@@ -23,8 +23,8 @@ You can also patch the .asm files directly using
 For more information on how to apply ROM patches, see this SnesLab
 article: https://sneslab.net/wiki/How_to_apply_ROM_patches
 
-It works only on the american version of Super R-Type. The japanese version is still being studied,
-and it will likely not work with this patch version.
+It works with the American, European and Japanese versions of Super R-Type. The BPS files are
+Super-R-Type-USA.bps, Super-R-Type-EUR.bps and Super-R-Type-JPN.bps.
 
 Expected checksums:
 
@@ -37,9 +37,30 @@ Expected checksums:
 * CRC32: 0D73E7D3
 * SHA256: 292F295D44D0569A7954151AB74B28845361DF1E5C12EDBE4F519DA14E18A892
 
+### European Version:
+#### Before patching:
+* CRC32: 1631740D
+* SHA256: 7C7E90FB7C762769219234BAF7B5FA6BF574FFF7DC63B7134D49EC7C8B38EA7E
+
+#### After patching
+* CRC32: A3CE72CE
+* SHA256: FAB5C40D95512D0E0E379BA38C5B1687C601917BFC1B6AC1945864AA78E10EAC
+
+### Japanese Version:
+#### Before patching:
+* CRC32: 4E872C8B
+* SHA256: F57F9A3EF36A66B739EA7F723B67122A39C3898AFC967AD7EDDAFB7BEB8D1CB1
+
+#### After patching
+* CRC32: 3FF82E73
+* SHA256: 77D22FA22606FBA24F114C39B411AF8298C11CA09600ED03A9B2786D097AB9F9
+
 ## Compatibility
 
 It works on both real hardware (sd2snes or SA-1 cart) and emulators (Snes9x and bsnes/higan/ares).
+
+On the European version, the opening sound effect plays a little before the ship launches. The
+original European game does the same, because it was never adapted to 50 Hz.
 
 ## Technical details
 
