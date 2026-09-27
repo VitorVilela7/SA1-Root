@@ -15,8 +15,8 @@ high hardware compatibility and keeping most of the game aspects intact.
 So far the following games are available:
 * [Contra III](Contra-III) v1.2
 * [Gradius III](Gradius-III) v1.7
-* [Race Drivin'](Race-Drivin) v1.2
-* [Super R-Type](Super-R-Type) v1.1
+* [Race Drivin'](Race-Drivin) v1.1
+* [Super R-Type](Super-R-Type) v1.3
 * Super Mario World ([SA-1 Pack only](https://github.com/VitorVilela7/SA1-Pack))
 
 What is it?
