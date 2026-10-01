@@ -94,11 +94,8 @@ SA-1 Root wouldn't be that awesome without help from these people:
 Special thanks also for all my patrons from
 https://www.patreon.com/vitorvilela, specially for:
 
-* Fabio Akita
-* Frogamus Lewd
-* gunmakuma
-* kccheng
-* PsychoFox
+* Isstanar
+* st01014
 
 Useful Links
 ============
