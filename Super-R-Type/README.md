@@ -1,5 +1,5 @@
 # SA-1 Root: Super R-Type
-Version 1.3, released ????-??-??
+Version 1.3, released 2026-10-01
 
 Super R-Type is a classic shooter game made by Irem, being kind of a upgrade from R-Type II.
 

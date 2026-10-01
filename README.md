@@ -5,7 +5,7 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.8              by Vitor Vilela
+    Version 1.9              by Vitor Vilela
 ```
 
 SA-1 Root is a project for enabling and accelerating games using the SA-1 chip.
