@@ -34,7 +34,7 @@ sa1_nmi_vector:
 sa1_irq_vector:
 	RTI
 	
-warnpc $00FFC0
+assert pc() <= $00FFC0
 
 org $00801F
 	JSL sa1_boot
@@ -515,7 +515,7 @@ pushpc
 
 !enable_boost = 1
 
-if !enable_boost = 1
+if !enable_boost == 1
 
 org $8223
 	JSL.L boost_1
@@ -523,7 +523,7 @@ org $8223
 	NOP #14
 +
 print pc
-warnpc $8237
+assert pc() == $8237
 
 org $836B
 	JSL.L boost_2
@@ -531,7 +531,7 @@ org $836B
 	NOP #24
 +
 print pc
-warnpc $8389
+assert pc() == $8389
 
 org $8427
 	JSL.L pre_boost_3
@@ -543,7 +543,7 @@ org $842F
 	NOP #24
 +
 print pc
-warnpc $844D
+assert pc() == $844D
 
 endif
 
@@ -582,7 +582,7 @@ org $00EF5C
 	NOP #3
 +
 print pc
-warnpc $00EF65
+assert pc() == $00EF65
 
 ; LDA.W #$0080                         ;80A817|A98000  |      ;  
 ; STA.W $1E80                          ;80A81A|8D801E  |051E80;  
@@ -849,7 +849,7 @@ org $00E3E0
 	LDA $2308
 
 print "mul 1: ", pc
-warnpc $00E3FC
+assert pc() == $00E3FC
 
 macro original_2()
 CODE_80E46A:
@@ -886,7 +886,7 @@ org $00E46A
 	LDA $2308
 
 print "mul 2: ", pc
-warnpc $00E486
+assert pc() == $00E486
 
 org $02EEF7
 	STZ $2250
@@ -934,7 +934,7 @@ org $02EEF7
 	STA $02
 	RTS
 print "mul 3: ", pc
-warnpc $02EF52
+assert pc() <= $02EF52
 	
 macro original_3()
 CODE_82EEF7:
@@ -1051,7 +1051,7 @@ org $03E8A8
 	NOP #6
 +
 print "mul 4: ", pc
-warnpc $03E8E4
+assert pc() == $03E8E4
 
 pullpc
 
@@ -1120,7 +1120,7 @@ org $02DE4A
 	BRA +
 	NOP #7
 +
-warnpc $02DE53
+assert pc() == $02DE53
 print pc
 
 macro original_5()
@@ -1159,7 +1159,7 @@ org $02DE6B
 	NOP #31
 +
 print "mul 5: ", pc
-warnpc $02DE90
+assert pc() == $02DE90
 
 org $02DEE0
 	JSL mul_cont
@@ -1167,7 +1167,7 @@ org $02DEE0
 	NOP #31
 +
 print "mul 6: ", pc
-warnpc $02DF05
+assert pc() == $02DF05
 
 pullpc
 
@@ -1597,7 +1597,7 @@ bomb_execute_snes:
 	JSL freespace_hack
 	RTS
 print pc
-warnpc $02E3E3
+assert pc() <= $02E3E3
 
 macro original_8()
 	SEP #$20                             ;82E10A|E220    |      ;  
@@ -1643,7 +1643,7 @@ bomb_alt_2:
 	
 
 print pc
-warnpc $02E133
+assert pc() <= $02E133
 
 org $02E189
 	RTS ;end of SNES only code.
@@ -1671,13 +1671,13 @@ org $1DAC16
 	JSR finish_div
 	STZ $2254
 	NOP
-warnpc $1DAC1D
+assert pc() == $1DAC1D
 	
 org $1DAC33
 	JSR finish_div
 	STZ $2254
 	NOP
-warnpc $1DAC3A
+assert pc() == $1DAC3A
 	
 org $1DAC20
 	LDY $2306
@@ -2047,7 +2047,7 @@ org $1DAD3C
 	RTL
 	
 ;print pc
-warnpc $1DAD7B
+assert pc() <= $1DAD7B
 	
 org $1DAD7B
 +	LDA #$FFFE
@@ -2069,7 +2069,7 @@ org $1DAED0
 	LDA $2306
 	JMP $AF15
 	
-warnpc $1DAF10
+assert pc() <= $1DAF10
 
 org $1DAF10
 +	LDA #$00FF
@@ -2077,14 +2077,14 @@ org $1DAF10
 	  
 !cpu_meter = 0
 
-if !cpu_meter = 1		       
+if !cpu_meter == 1		       
 	org $81DA
 		JML cpu_meter
 endif
 
 pullpc
 
-if !cpu_meter = 1		       
+if !cpu_meter == 1		       
 cpu_meter:
 	SEP #$20
 	LDA #$08
@@ -2149,7 +2149,7 @@ org $00BB6A
 	RTS
 	
 ;print pc
-warnpc $00BBA9
+assert pc() <= $00BBA9
 
 macro original_9()
   CODE_80B8ED: STA.B $FA                            ;80B8ED|85FA    |0000FA;  
@@ -2194,7 +2194,7 @@ org $00B8F5
 	BRA +
 	NOP #3
 +
-warnpc $00B910
+assert pc() == $00B910
 ;print pc
 
 org $00B910
@@ -2322,7 +2322,7 @@ org $00F5D9
 	
 	NOP #40
 print pc
-warnpc $00F65E
+assert pc() == $00F65E
 
 org $00FF48
 	LDA #$0002
@@ -2340,7 +2340,7 @@ org $00FF48
 	NOP #11
 +
 print pc
-warnpc $00FF71
+assert pc() == $00FF71
 
 ; x^2+y^2
 macro original_11()
@@ -2399,7 +2399,7 @@ org $e786
 	nop
 +	lda $2306
 print pc
-warnpc $00e79f
+assert pc() == $00e79f
 
 ; top-view on mode 7 levels
 
@@ -2429,7 +2429,7 @@ org $03E4F0
 	NOP #6
 +
 print pc
-warnpc $03E52C
+assert pc() == $03E52C
 
 
 macro original_13()
@@ -2507,7 +2507,7 @@ org $03E617
 	NOP #6
 +
 print pc
-warnpc $03E651
+assert pc() == $03E651
 	
 
 macro original_14()

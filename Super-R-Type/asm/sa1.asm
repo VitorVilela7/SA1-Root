@@ -145,4 +145,4 @@ org $00A76D
     
     incsrc "hooks.asm"
 
-warnpc $00FFC0
+assert pc() <= $00FFC0

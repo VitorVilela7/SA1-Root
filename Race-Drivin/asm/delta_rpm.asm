@@ -37,7 +37,7 @@ org $00F2AE
 +	STA $6256
 	RTL
 	
-warnpc $00F2CE
+assert pc() <= $00F2CE
 
 org $009843
 	LDA #$0004
@@ -60,7 +60,7 @@ org $009940
 	LDA #$0000
 +
 ;print pc
-warnpc $00994C
+assert pc() == $00994C
 
 ; appears to be used when on offroad
 org $00E05A
@@ -70,7 +70,7 @@ org $00E05A
 	LDA #$0000
 +
 ;;print pc
-warnpc $00E066
+assert pc() == $00E066
 
 org $0097BA
 	db $90 ;change BNE to BCS
@@ -113,7 +113,6 @@ pullpc
 
 ; use current gear and time passed for calculation.
 
-math round off
 
 rpm_gear_ratio:	
 	dw $5000/3.60*3.60
@@ -126,7 +125,6 @@ max_gear_speed:
 	;dw 127,127,127,127
 	dw 25, 41, 58, 127 ;82
 
-math round on
 	
 ; no RPM is applied, value
 ; stays constant within speed.

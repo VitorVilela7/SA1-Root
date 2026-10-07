@@ -240,7 +240,7 @@ org $00B4A1
 	STA $F8
 	RTL
 
-warnpc $00B4D2
+assert pc() <= $00B4D2
 
 org $00B4D2
 transfer_framebuffer:
@@ -278,7 +278,7 @@ transfer_framebuffer:
 	REP #$20
 	RTS
 	
-warnpc $00B520
+assert pc() <= $00B520
 
 ; optimize NMI
 org $00F420
@@ -335,7 +335,7 @@ org $00F420
 	PLB
 	RTI
 	
-warnpc $00F48C
+assert pc() <= $00F48C
 
 ; optimize NMI part 2
 org $8211
@@ -428,6 +428,6 @@ nmi_part2:
 	REP #$30          
 	JMP transfer_framebuffer
 	
-warnpc $0082D2
+assert pc() <= $0082D2
 
 pullpc

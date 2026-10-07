@@ -1,6 +1,8 @@
 ; SA-1 Root
 ; for Race Drivin (USA)
 
+asar 1.90
+
 ; Set value to 0 for optimized Race Drivin' speed and 1 for close-as-original speed.
 !origin	= 0
 
@@ -127,7 +129,7 @@ org $00F48E
 	incsrc "fixes.asm"
 
 print "F1 Area: $", pc
-warnpc $00F900
+assert pc() <= $00F900
 
 ; Extra freespace	
 org $00FED4
@@ -135,7 +137,7 @@ org $00FED4
 	incsrc "delta_main.asm"
 	
 print "F2 Area: $", pc
-warnpc $00FFC0
+assert pc() <= $00FFC0
 
 org $018E02
 	incsrc "commit_buffer.asm"
@@ -158,4 +160,4 @@ org $018E02
 	incsrc "delta_sprites.asm"
 
 print "FX Area: $", pc
-warnpc $028000
+assert pc() <= $028000

@@ -230,7 +230,7 @@ org $02FD62
 	CPY #$0020
 	BCC -
 	RTL
-warnpc $02FD74
+assert pc() <= $02FD74
 
 ;          CODE_82FEA5: STX.B $00                            ;82FEA5|8600    |000000;  
 ;                       LDA.W #$0000                         ;82FEA7|A90000  |      ;  
@@ -253,7 +253,7 @@ org $02FEA5
 	CPY #$0020
 	BCC -
 	RTL
-warnpc $02FEB7
+assert pc() <= $02FEB7
 
 ;                       STX.B $00                            ;82FE33|8600    |000000;  
 ;                       LDA.W #$0000                         ;82FE35|A90000  |      ;  
@@ -276,4 +276,4 @@ org $02FE33
 	CPY #$0020
 	BCC -
 	RTL
-warnpc $02FE45
+assert pc() <= $02FE45

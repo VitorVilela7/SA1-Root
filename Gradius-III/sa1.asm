@@ -246,7 +246,7 @@ ORG $00829E
 	NOP #12
 +
 ;print pc
-warnpc $0082B6
+assert pc() == $0082B6
 
 ;          CODE_008806: LDA.B $34                            ;008806|A534    |000034;  
 ;                       PHX                                  ;008808|DA      |      ;  
@@ -279,7 +279,7 @@ ORG $02815d
 	JMP mul_sa1
 mul_snes:
 	JMP mul_snes2
-warnpc $028169
+assert pc() <= $028169
 
 ;                       LDA.W $0000,Y                        ;02E375|B90000  |010000;  
 ORG $02E375
@@ -322,7 +322,7 @@ mul_snes2:
 	LDA $4216
 	JMP $8169
 	
-WARNPC $038000
+assert pc() <= $038000
 
 ; optimize MVN
 ; REP #$10                             ;00802E|C210    |      ;  
@@ -361,7 +361,7 @@ zero:	STA $4300
 	SEP #$21
 	LDA #$80
 	JMP clear_vram_continue
-warnpc $00924D
+assert pc() <= $00924D
 
 ORG $8B3C
 	REP #$30
@@ -377,7 +377,7 @@ ORG $8B3C
 	MVN $01,$01
 	RTL
 	NOP #2
-warnpc $008B55
+assert pc() == $008B55
 
 ; Dynamically remaps all banks from 7E/7F to 40/41 at runtime.
 ; This was made for not having to do the process manually by
@@ -770,7 +770,7 @@ cb_spec_00AFA5:
 	JMP do_callback
 
 print pc
-warnpc $00FFC0
+assert pc() <= $00FFC0
 
 	
 	

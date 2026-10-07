@@ -61,7 +61,7 @@ org $00D96C
 	STA $6E16
 	NOP #2
 ;print pc
-warnpc $00D97F
+assert pc() == $00D97F
 	
 org $00D98B
 	CMP #$4000
@@ -73,7 +73,7 @@ org $00D990
 	CLC
 	ADC #$060F
 ;print pc
-warnpc $00D99F
+assert pc() == $00D99F
 	
 org $00D9B4
 	CMP #$6000
@@ -82,7 +82,7 @@ org $00D9B9
 	SBC #$3FFE
 	LSR #5
 ;print pc
-warnpc $00D9C1
+assert pc() == $00D9C1
 	
 org $00D9E1
 	SBC #$6000
@@ -92,6 +92,6 @@ org $00D9E1
 	CLC
 	ADC #$060F
 ;print pc
-warnpc $00D9F3
+assert pc() == $00D9F3
 
 pullpc

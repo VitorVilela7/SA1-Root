@@ -111,7 +111,7 @@ org $00AB1B
 	LDA !y_dt
 	CLC
 	JML finish_1
-warnpc $00AB37
+assert pc() <= $00AB37
 
 org $00AB37
 	JSL multiply_without_delta
@@ -179,7 +179,7 @@ multiply_then_delta3:
 	RTS
 
 ;print pc
-warnpc $00C5F2
+assert pc() <= $00C5F2
 
 pullpc
 

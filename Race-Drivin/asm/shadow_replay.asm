@@ -80,7 +80,7 @@ org $00AA64
 	CPY #$00E0
 	BCC -
 ;print pc
-warnpc $00AA95
+assert pc() == $00AA95
 	
 org $00AA9A
 	AND.W #!replay_slots-1
@@ -129,7 +129,7 @@ org $00AAE7
 	BCC -
 	
 ;print pc
-warnpc $00AB18
+assert pc() == $00AB18
 	
 org $008F0E
 	LDY.w #!replay_slots
@@ -160,7 +160,7 @@ org $00DB9C
 	PLB
 	REP #$20
 ;print pc
-warnpc $00DBA7
+assert pc() == $00DBA7
 
 org $00DBA9
 	STA.w !autocross_shadow+0,x
@@ -195,7 +195,7 @@ org $00DC02
 	PLB
 	REP #$20
 ;print pc
-warnpc $00DC0D
+assert pc() == $00DC0D
 	
 org $00DC0F
 	STA.w !autocross_shadow+0,x
@@ -212,7 +212,7 @@ org $00DC25
 	STX $6234
 +
 ;print pc
-warnpc $00DC2B
+assert pc() == $00DC2B
 
 pullpc
 
@@ -236,7 +236,7 @@ org $00DC31
 	STA $6E1E
 	JML shadow_finish_load
 ;print pc
-warnpc $00DC5D-1
+assert pc() <= $00DC5D-1
 
 pullpc
 

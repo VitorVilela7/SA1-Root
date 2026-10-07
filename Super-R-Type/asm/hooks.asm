@@ -194,7 +194,7 @@ macro update_display(addr, cnt)
 				NOP #<cnt>
 			endif
 		
-		warnpc <addr>+4+<cnt>
+		assert pc() == <addr>+4+<cnt>
 	pullpc
 endmacro
 	
@@ -267,7 +267,7 @@ macro update_display_2(addr)
 		org <addr>
 			JSL update_display_2
 			NOP
-		warnpc <addr>+5
+		assert pc() == <addr>+5
 	pullpc
 endmacro
 
@@ -399,7 +399,7 @@ pushpc
 			STA $2106
 			RTL
 			
-	warnpc $04FFFF+1
+	assert pc() <= $04FFFF+1
 	
 pullpc
 
@@ -442,7 +442,7 @@ org $00828D
 		
 		NOP #9
 	
-	warnpc $0082C8
+	assert pc() == $0082C8
 
 org $0082C8
 	nmi_continue:
@@ -473,7 +473,7 @@ pushpc
 		RTL
 		
 		NOP
-	warnpc $8AF0
+	assert pc() == $8AF0
 	
 	org $008AF0
 		LDA #$0001
@@ -491,5 +491,5 @@ pushpc
 		RTL
 		
 		NOP #9
-	warnpc $008B18
+	assert pc() == $008B18
 pullpc

@@ -13,7 +13,7 @@ org $00CD1C
 	db $30 ;BMI
 
 ;print pc	
-warnpc $00CD24+1
+assert pc() == $00CD24+1
 
 ; case: max($3a,-$3c)
 
@@ -61,7 +61,7 @@ org $00CE4D
 	BMI +
 	BEQ ++
 ;print pc
-warnpc $00CE5D
+assert pc() == $00CE5D
 	
 org $00CE78
 	+
@@ -80,7 +80,7 @@ org $00CDE8
 	BEQ +
 	BPL ++
 ;print pc
-warnpc $00CDF3
+assert pc() == $00CDF3
 	
 org $00CE29
 	+
@@ -104,7 +104,7 @@ org $00CEB3
 	BPL ++
 	
 ;print pc
-warnpc $00CEBE
+assert pc() == $00CEBE
 	
 org $00CEF4
 	+
@@ -127,7 +127,7 @@ org $00CD82
 	BMI +
 	BEQ ++
 ;print pc
-warnpc $00CD92
+assert pc() == $00CD92
 	
 org $00CDAD
 	+
@@ -172,7 +172,7 @@ org $00BD0B
 	TSB $9C
 	BRA +
 ;print pc
-warnpc $00BD27
+assert pc() <= $00BD27
 	
 org $00BD27
 	+
@@ -219,7 +219,7 @@ org $00C195
 	NOP #16
 
 ;print pc
-warnpc $00C1C8
+assert pc() == $00C1C8
 
 org $00C1C8
 	+
@@ -274,7 +274,7 @@ org $00CEF7
 	RTS
 
 ;print pc
-warnpc $00CF4F
+assert pc() <= $00CF4F
 
 
 pullpc

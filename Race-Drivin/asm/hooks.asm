@@ -273,7 +273,7 @@ org $00C5F2
 	INC
 	RTS
 	
-warnpc $00C679
+assert pc() <= $00C679
 
 org $00C52F
 	LDA $3A
@@ -285,7 +285,7 @@ org $00C52F
 	LDX $2308
 	RTS
 ;print pc
-warnpc $00C541
+assert pc() <= $00C541
 ;warnpc $00C5F2
 
 ; optimize division algorithm
@@ -314,7 +314,7 @@ org $00C690
 
 	NOP #11
 	
-warnpc $00C6C0
+assert pc() == $00C6C0
 org $00C6C0
 .here
 
