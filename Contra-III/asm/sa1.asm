@@ -1692,6 +1692,36 @@ cpu_meter:
 	RTI
 endif
 
+; top-down bomb timer advances on 2 of every 3 frames, as with the original slowdown
+; the high byte of $24,X counts the frames
+
+bomb_top_down_tick:
+	LDA.B $24,X
+	CLC
+	ADC.W #$0101
+	CMP.W #$0300
+	BCC +
+	SBC.W #$0301
++
+	STA.B $24,X
+	AND.W #$00FF
+	CMP.W #$0070
+	BCC .radius
+	JSL CODE_829B21
+	JML CODE_82E6B6
+
+.radius
+	LSR
+	LSR
+	STA.B $18
+	ASL
+	ASL
+	ASL
+	SEC
+	SBC.B $18
+	STA.B $14,X
+	JML CODE_82E6C5
+
 
 ; top-view on mode 7 levels
 

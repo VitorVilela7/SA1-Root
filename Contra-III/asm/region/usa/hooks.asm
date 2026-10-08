@@ -494,6 +494,16 @@ org $05A7BD
 	assert read2(pc()) == $00B4
 	dw $00B4+35
 
+; Make the bombs last longer, closer to the original game with its slowdown
+
+org $01AB0D
+	assert read2(pc()) == $0800
+	dw $0480
+
+org $02E6A9
+	assert read4(pc()) == $24B524F6
+	JML bomb_top_down_tick
+
 org $008BC0
 CODE_808BC0:
 
@@ -538,6 +548,17 @@ CODE_80E5F7:
 
 org $00E7EF
 CODE_80E7EF:
+
+org $029B21
+CODE_829B21:
+
+org $02E6B6
+CODE_82E6B6:
+	assert read1(pc()) == $60
+
+org $02E6C5
+CODE_82E6C5:
+	assert read1(pc()) == $60
 
 org $04D967
 CODE_84D967:
