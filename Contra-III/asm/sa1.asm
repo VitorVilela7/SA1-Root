@@ -1,7 +1,10 @@
 ; SA-1 Root
-; for Contra III USA (SNES)
+; for Contra III (SNES)
 
 sa1rom
+
+; usa, eur or jpn
+!region ?= usa
 
 ; SA-1 ROM
 ORG $FFD5 : db $23,$35
@@ -10,17 +13,7 @@ ORG $FFD5 : db $23,$35
 ORG $FFD8 : db $07
 
 ; RAM remap files
-incsrc static_remap/new_discrete_abs_remap.asm
-incsrc static_remap/new_discrete_full_abs_remap.asm
-incsrc static_remap/new_discrete_long_remap.asm
-incsrc static_remap/new_indexed_abs_remap.asm
-incsrc static_remap/new_indexed_full_abs_remap.asm
-incsrc static_remap/new_indexed_long_remap.asm
-incsrc static_remap/new_indirect_abs_remap.asm
-
-; Complex remaps.
-incsrc dynamic_remap/dp_mvn.asm
-incsrc dynamic_remap/dma.asm
+incsrc "remap/!region/remap.asm"
 
 org $00FFB2
 
@@ -40,84 +33,7 @@ org $00801F
 	JSL sa1_boot
 	NOP
 	
-;org $00EAB8 : MVN $05,$05
-org $00EAB8
-move_block:
-	JML .main
-.back
-
-;org $00E224 : MVN $05,$05
-org $00E224
-move_block2:
-	JML .main
-.back
-
-;org $019E69 : MVN $05,$05
-org $019E69
-move_block3:
-	JML .main
-.back
-
-org $00F1DF
-	JSL bank_remap_1
-	NOP
-	
-org $009BE7
-	JSL bank_remap_g
-	
-org $00930C
-	JSL bank_remap
-	
-org $0092E2
-	JSL bank_remap
-	
-;00f1c5 lda $0000,y   [05aa0d] A:0001 X:0009 Y:aa0d S:1fda D:6000 DB:05 NvmxdizC V:201 H: 376 F:10
-;00f1c8 sta $00       [006000] A:1380 X:0009 Y:aa0d S:1fda D:6000 DB:05 nvmxdizC V:201 H: 422 F:10
-
-org $00F1C5
-	JSL addr_remap
-	NOP
-	
-;                       LDA.W #$1380                         ;80C6FE|A98013  |      ;  
-org $00C6FE
-	LDA #$7380
-
-;                       LDA.W #$1398                         ;80C81C|A99813  |      ;  
-org $00C81C
-	LDA #$7398
-
-;                       LDA.W #$1380                         ;80CE29|A98013  |      ;  
-org $00CE29
-	LDA #$7380
-	
-;          CODE_808BB8: LDX.W $0000,Y                        ;808BB8|BE0000  |050000;  
-;                       CPX.W #$FFFF                         ;808BBB|E0FFFF  |      ;  
-;                       BCS CODE_808BD7                      ;808BBE|B017    |808BD7;  
-
-org $8BB8
-	LDA $0000,Y
-	JML hdma_fix
-	
-org $E590
-	LDA $0000,Y
-	JML hdma_fix_2
-
-;                       LDA.W $0005,Y                        ;80E5A2|B90500  |050005;  
-;                       STA.B $03,X                          ;80E5A5|9503    |000003;  
-;                       STA.B $06,X                          ;80E5A7|9506    |000006;  	
-	
-org $B183
-	LDA $0000,Y
-	JML hdma_fix_3
-	
-org $E5A2
-	JSL hdma_bank_remap
-	NOP
-
-; remove SEP #$20, crashes callback.
-; dest routine already does SEP #$20
-org $008DFB
-	BRA $00
+incsrc "region/!region/hooks.asm"
 
 org $01F6E5
 
@@ -330,9 +246,9 @@ hdma_fix:
 	BCC .ok
 	SBC #$6000
 .ok	TAX
-	JML $008BC0
+	JML CODE_808BC0
 	
-.end	JML $008BD7
+.end	JML CODE_808BD7
 
 hdma_fix_2:
 	CMP #$FFFF
@@ -341,9 +257,9 @@ hdma_fix_2:
 	BCC .ok
 	SBC #$6000
 .ok	TAX
-	JML $00E598
+	JML CODE_80E598
 	
-.end	JML $00E5B1
+.end	JML CODE_80E5B1
 
 hdma_fix_3:
 	CMP #$FFFF
@@ -352,9 +268,9 @@ hdma_fix_3:
 	BCC .ok
 	SBC #$6000
 .ok	TAX
-	JML $00B18B
+	JML CODE_80B18B
 	
-.end	JML $00B1A2
+.end	JML CODE_80B1A2
 
 hdma_bank_remap:
 ;                       LDA.W $0005,Y                        ;80E5A2|B90500  |050005;  
@@ -377,6 +293,9 @@ macro inline_callback(dest)
 endmacro
 
 macro add_callback(addr, dest)
+	assert read1(<addr>) == $22
+	assert read3(<addr>+1) == <dest>
+	
 	pushpc
 		org <addr>
 			JSL ?callback
@@ -402,85 +321,7 @@ macro add_callback_jmp(addr, dest)
 		JMP do_callback
 endmacro
 
-; audio uploaders
-%add_callback($0098DB, $0098E2)
-%add_callback($009966, $0098E2)
-
-; "change music". A must be preserved
-;JSL.L CODE_808624                    ;84D99C|22248600|008624;  
-;JSL.L CODE_808624                    ;84D9AA|22248600|008624;  
-;JSL.L CODE_808624                    ;84DA02|22248600|008624;  
-;better callback the routines that calls them.
-
-%add_callback($00A434, $04D9F1)
-%add_callback($00A8B1, $04D9F1)
-%add_callback($00ADAD, $04D9F1)
-;another one, at bank 04, is treated on its freespace block
-
-;isolate ppu brightness/dma en/hdma en init case.
-%add_callback($00B507, $0085DF)
-
-;more ppu init
-%add_callback($008DDF, $0085A9)
-%add_callback($0090E1, $0085A9)
-%add_callback($0091CF, $0085A9)
-%add_callback($0091E9, $0085A9)
-%add_callback($00ABCC, $0085A9)
-%add_callback($00B50B, $0085A9)
-
-;clear vram routine
-%add_callback($0080CD, $008E4B) ;8080CD|224B8E00|008E4B;  
-%add_callback($008E12, $008E4B) ;808E12|224B8E00|008E4B;  
-%add_callback($008E1F, $008E4B) ;808E1F|224B8E00|008E4B;  
-%add_callback($008E2C, $008E4B) ;808E2C|224B8E00|008E4B;  
-%add_callback($008E39, $008E4B) ;808E39|224B8E00|008E4B;  
-%add_callback($008E46, $008E4B) ;808E46|224B8E00|008E4B;  
-%add_callback($00ECC8, $008E4B) ;80ECC8|224B8E00|008E4B;  
-%add_callback($00ECD6, $008E4B) ;80ECD6|224B8E00|008E4B;  
-
-;init whole ppu routine
-%add_callback($008129, $0086AC)                    ;808129|22AC8600|0086AC;  
-%add_callback($008DFD, $0086AC)                    ;808DFD|22AC8600|0086AC;  
-
-;enable nmi and autojoypad
-%add_callback($008157, $00848F)                    ;808157|228F8400|00848F;  
-%add_callback($008E03, $00848F)                    ;808E03|228F8400|00848F;  
-%add_callback($00ABD6, $00848F)                    ;80ABD6|228F8400|00848F;  
-
-;upload to vram
-%add_callback($00914E, $009172)                    ;80914E|22729100|009172;  
-%add_callback($009169, $009172)                    ;809169|22729100|009172;  
-
-;extended version of 0085DF
-%add_callback($0090F6, $0085C1)                    ;8090F6|22C18500|0085C1;  
-
-;some ppu setup + other loading
-;%add_callback($00A450, $00BD40)                    ;80A450|2240BD00|00BD40;  
-;%add_callback_jmp($00AC3B, $00BD40)                ;80AC3B|5C40BD00|00BD40;  
-
-;vram upload, alt 1
-%add_callback($009215, $009246)                    ;809215|22469200|009246;  
-;vram upload, alt 2
-%add_callback($009232, $00923B)                    ;809232|223B9200|00923B;  
-
-;stripe image vram uploaders?
-%add_callback($008200, $008CFF)                    ;808200|22FF8C00|008CFF;  
-%add_callback($008303, $008CFF)                    ;808303|22FF8C00|008CFF;  
-%add_callback($00C648, $008CFF)                    ;80C648|22FF8C00|008CFF;  
-%add_callback($028A83, $008CFF)                    ;828A83|22FF8C00|008CFF;  
-
-;some auxiliary uploaders
-%add_callback($028B8D, $04DB02)                    ;828B8D|2202DB04|04DB02;  
-%add_callback($028BA0, $04DB02)                    ;828BA0|2202DB04|04DB02;  
-%add_callback($028BC1, $04DB02)                    ;828BC1|2202DB04|04DB02;  
-%add_callback($028BE2, $04DB02)                    ;828BE2|2202DB04|04DB02;  
-
-;hdma set up
-%add_callback($00B17E, $00B183)                    ;80B17E|2283B100|00B183;  
-%add_callback($028581, $00B183)                    ;828581|2283B100|00B183;  
-
-;JSL.L CODE_80C575                    ;80BEE6|2275C500|00C575; 
-%add_callback($00BEE6, $00C575)
+incsrc "region/!region/callbacks.asm"
 
 do_callback:
 	STA $300C
@@ -547,179 +388,9 @@ assert pc() == $844D
 
 endif
 
-org $00BE05
-	JML swap_cpu_ppu_load
-	
-org $00EC6A
-	JML swap_cpu_ppu_load_2
-	
-org $00EC10
-	JML swap_cpu_ppu_load_3
-	
-org $00BE6E
-	JML swap_cpu_ppu_load_4
-	
-org $00F18D
-	JSL swap_cpu_ppu_load_5
-	RTS
-	
-org $00F1A8
-	RTL
-	
-org $00F1A9
-	JSL swap_cpu_ppu_load_6
-	RTS
-	
-org $00F1C4
-	RTL
-	
-org $00BEA7
-	RTL
-	
-org $00EF5C
-	JSL swap_cpu_ppu_load_7
-	BRA +
-	NOP #3
-+
-print pc
-assert pc() == $00EF65
-
-; LDA.W #$0080                         ;80A817|A98000  |      ;  
-; STA.W $1E80                          ;80A81A|8D801E  |051E80;  
-; SEP #$20                             ;80A81D|E220    |      ;  
-; STA.W $2100                          ;80A81F|8D0021  |052100;  
-; REP #$20                             ;80A822|C220    |      ;  
-
-org $00A81D
-	JSL swap_cpu_ppu_load_8
-	BRA +
-	NOP
-+
-
-org $0283EC
-	JSL swap_cpu_ppu_load_9
-	BRA +
-org $028412
-	RTL
-	
-org $028414
-+
-
-;00a96d jsl $008dbe   [008dbe] A:a96d X:1310 Y:7340 S:37f9 D:6000 DB:05 nvmxdIzc V:238 H: 48 F:59
-;00a971 lda #$0080             A:ff04 X:147f Y:0000 S:37f9 D:6000 DB:05 NvmxdIzC V: 14 H: 85 F: 7
-;00a974 sta $7e80     [057e80] A:0080 X:147f Y:0000 S:37f9 D:6000 DB:05 nvmxdIzC V: 14 H: 85 F: 7
-;00a977 sep #$20               A:0080 X:147f Y:0000 S:37f9 D:6000 DB:05 nvmxdIzC V: 14 H:103 F: 7
-;00a979 sta $2100     [052100] A:0080 X:147f Y:0000 S:37f9 D:6000 DB:05 nvMxdIzC V: 14 H:103 F: 7
-
-org $00a977
-	JSL swap_cpu_ppu_load_8
-	BRA +
-	NOP
-+
-
-; now restore
-;   SEP #$20                             ;8284A7|E220    |      ;  
-;   LDA.B #$0A                           ;8284A9|A90A    |      ;  
-;   STA.W $2101                          ;8284AB|8D0121  |052101;  
-;   LDA.B #$09                           ;8284AE|A909    |      ;  
-;   STA.W $2105                          ;8284B0|8D0521  |052105;  
-;   STZ.W $211A                          ;8284B3|9C1A21  |05211A;  
-;   REP #$20                             ;8284B6|C220    |      ;  
-
-org $0284A7
-	JSL swap_cpu_ppu_load_10
-	BRA +
-org $0284B8
-+
-
-
 pullpc
 
-swap_cpu_ppu_load_10:
-	%inline_callback(.snes)
-.snes
-	SEP #$20
-	LDA.B #$0A 
-	STA.W $2101
-	LDA.B #$09
-	STA.W $2105
-	STZ.W $211A
-	REP #$20   
-	RTL
-	
-; top-down view select button fixes
-swap_cpu_ppu_load_9:
-	%inline_callback(.snes)
-.snes
-	SEP #$20
-	LDA #$12
-	STA $2101
-	JSL $0283F3
-	REP #$20
-	RTL
-
-swap_cpu_ppu_load_8:
-	%inline_callback(.snes)
-.snes
-	SEP #$20
-	LDA #$80
-	STA $2100
-	REP #$20
-	RTL
-
-swap_cpu_ppu_load_7:
-	%inline_callback(.snes)
-.snes
-	LDA.W #$0040                         ;80EF5C|A94000  |      ;  
-	STA.W $2107                          ;80EF5F|8D0721  |052107;  
-	STA.W $7E8C                          ;80EF62|8D8C1E  |051E8C;  
-	RTL
-	
-swap_cpu_ppu_load_6:
-	%inline_callback(.snes)
-.snes
-	LDA.W #$0013                         ;80F18D|A90300  |      ;  
-	STA.W $7E9A                          ;80F190|8D9A1E  |051E9A;
-	JML $00F1AF
-
-swap_cpu_ppu_load_5:
-	%inline_callback(.snes)
-.snes
-	LDA.W #$0003                         ;80F18D|A90300  |      ;  
-	STA.W $7E9A                          ;80F190|8D9A1E  |051E9A;
-	JML $00F193
-
-swap_cpu_ppu_load_4:
-	INC $7600
-	JSL .call_snes
-	LDA.W #$0017
-	JML $00BEAA
-	
-.call_snes
-	%inline_callback(.snes)
-	
-.snes
-	LDA #$0041
-	JML $00BE74
-
-swap_cpu_ppu_load_3:
-	STZ.W $7C96
-	%inline_callback(.snes)
-.snes
-	LDA #$0020
-	JML $00EC16
-
-swap_cpu_ppu_load_2:
-	%inline_callback(.snes)
-.snes
-	LDA #$0080
-	STA $2100
-	JML $00EC70
-	
-
-swap_cpu_ppu_load:
-	STA $403E1E
-	%inline_callback($00BE09)
+incsrc "region/!region/swaps.asm"
 
 ; runs on konami logo and menu/title screen?
 boost_1:
@@ -728,11 +399,11 @@ boost_1:
 	JSR $1D00
 	RTL
 .sa1
-	JSL.L $00A377 ;nok <-- bit slow
+	JSL.L CODE_80A377 ;nok <-- bit slow
 	JSL.L $00816C ;ok
-	JSL.L $009995 ;ok
-	JSL.L $0090C7 ;nok <-- very slow
-	JSL.L $009B76 ;ok
+	JSL.L CODE_809995 ;ok
+	JSL.L CODE_8090C7 ;nok <-- very slow
+	JSL.L CODE_809B76 ;ok
 	RTL
 	
 boost_2:
@@ -742,14 +413,14 @@ boost_2:
 	RTL
 	
 .sa1
-	JSL.L $00E7EF ;?ok
-	JSL.L $00E5F7 ;seems ok
+	JSL.L CODE_80E7EF ;?ok
+	JSL.L CODE_80E5F7 ;seems ok
 	STZ.B $5C  
-	JSL.L $00A377 ;nok
+	JSL.L CODE_80A377 ;nok
 	JSL.L $00816C ;ok
-	JSL.L $009995 ;ok
-	JSL.L $0090C7 ;nok
-	JSL.L $009B76 ;ok  
+	JSL.L CODE_809995 ;ok
+	JSL.L CODE_8090C7 ;nok
+	JSL.L CODE_809B76 ;ok  
 	RTL
 	
 pre_boost_3:
@@ -768,13 +439,13 @@ boost_3: ;top-down view?
 	
 .sa1
 	STZ.B $5C
-	JSL.L $00A377 ;nok
+	JSL.L CODE_80A377 ;nok
 	JSL.L $00816C ;ok
-	JSL.L $00E3CD ;has multiplications, can break a bit
+	JSL.L CODE_80E3CD ;has multiplications, can break a bit
 	JSL.L $02ED77 ;?ok
 	JSL.L $03E180 ;?ok
-	JSL.L $009995 ;ok
-	JSL.L $0090C7 ;nok
+	JSL.L CODE_809995 ;ok
+	JSL.L CODE_8090C7 ;nok
 	RTL
 	
 pushpc
@@ -793,100 +464,26 @@ status_player_1:
 	TSX
 	CPX #$3700
 	BCS .already_sa1
-	LDA.w #$00E3DA
-	LDY.w #$00E3DA>>16
+	LDA.w #CODE_80E3DA
+	LDY.w #CODE_80E3DA>>16
 	JSR $1D00
 	RTL
 .already_sa1
-	JML $00E3DA
+	JML CODE_80E3DA
 	
 status_player_2:
 	TSX
 	CPX #$3700
 	BCS .already_sa1
-	LDA.w #$00E464
-	LDY.w #$00E464>>16
+	LDA.w #CODE_80E464
+	LDY.w #CODE_80E464>>16
 	JSR $1D00
 	RTL
 .already_sa1
-	JML $00E464
+	JML CODE_80E464
 	
 pushpc
 
-macro original_1()
-CODE_80E3E0:
-	STA.W $4204                          ;80E3E0|8D0442  |054204;  
-	SEP #$20                             ;80E3E3|E220    |      ;  
-	LDA.B #$0A                           ;80E3E5|A90A    |      ;  
-	STA.W $4206                          ;80E3E7|8D0642  |054206;  
-	NOP                                  ;80E3EA|EA      |      ;  
-	NOP                                  ;80E3EB|EA      |      ;  
-	NOP                                  ;80E3EC|EA      |      ;  
-	NOP                                  ;80E3ED|EA      |      ;  
-	NOP                                  ;80E3EE|EA      |      ;  
-	NOP                                  ;80E3EF|EA      |      ;  
-	NOP                                  ;80E3F0|EA      |      ;  
-	NOP                                  ;80E3F1|EA      |      ;  
-	LDA.W $4214                          ;80E3F2|AD1442  |054214;  
-	INC A                                ;80E3F5|1A      |      ;  
-	STA.W $1744                          ;80E3F6|8D4417  |051744;  
-	LDA.W $4216                          ;80E3F9|AD1642  |054216;  
-	INC A                                ;80E3FC|1A      |      ;  
-	STA.W $1746                          ;80E3FD|8D4617  |051746;  
-endmacro
-
-; current lives -> status bar.
-org $00E3E0
-	LDX #$0001
-	STX $2250
-	STA $2251
-	LDX #$000A
-	STX $2253
-	SEP #$21
-	LDA #$00
-	ADC $2306
-	STA $7744
-	LDA $2308
-
-print "mul 1: ", pc
-assert pc() == $00E3FC
-
-macro original_2()
-CODE_80E46A:
-	STA.W $4204                          ;80E46A|8D0442  |054204;  
-	SEP #$20                             ;80E46D|E220    |      ;  
-	LDA.B #$0A                           ;80E46F|A90A    |      ;  
-	STA.W $4206                          ;80E471|8D0642  |054206;  
-	NOP                                  ;80E474|EA      |      ;  
-	NOP                                  ;80E475|EA      |      ;  
-	NOP                                  ;80E476|EA      |      ;  
-	NOP                                  ;80E477|EA      |      ;  
-	NOP                                  ;80E478|EA      |      ;  
-	NOP                                  ;80E479|EA      |      ;  
-	NOP                                  ;80E47A|EA      |      ;  
-	NOP                                  ;80E47B|EA      |      ;  
-	LDA.W $4214                          ;80E47C|AD1442  |054214;  
-	INC A                                ;80E47F|1A      |      ;  
-	STA.W $1764                          ;80E480|8D6417  |051764;  
-	LDA.W $4216                          ;80E483|AD1642  |054216;  
-	INC A                                ;80E486|1A      |      ;  
-	STA.W $1766                          ;80E487|8D6617  |051766;  
-endmacro
-	
-org $00E46A
-	LDX #$0001
-	STX $2250
-	STA $2251
-	LDX #$000A
-	STX $2253
-	SEP #$21
-	LDA #$00
-	ADC $2306
-	STA $7764
-	LDA $2308
-
-print "mul 2: ", pc
-assert pc() == $00E486
 
 org $02EEF7
 	STZ $2250
@@ -1201,7 +798,7 @@ mul_cont:
 	STA $2251
 	
 	STZ $2252
-	LDA $E336,Y
+	LDA.w DATA8_85E336,Y
 	STA $2253
 	STZ $2254
 	
@@ -1408,9 +1005,6 @@ LDA.w $ff8a+$6000,x
 org $02e697
 LDA.w $ff8e+$6000,x
 
-;                       JSR.W CODE_84D967                    ;84D8E0|2067D9  |84D967;  
-org $04D8E0
-	JSR local_callback_audio
 
 org $04E38C
 
@@ -1418,7 +1012,7 @@ local_callback_audio:
 	TSC
 	CMP #$3700
 	BCS .ok
-	JMP $D967
+	JMP CODE_84D967
 .ok
 	LDA.W #.run_snes
 	LDY.W #.run_snes>>16
@@ -1434,7 +1028,7 @@ local_callback_audio:
 	RTS
 
 .run_snes
-	JSR $D967
+	JSR CODE_84D967
 	RTL
 	
 org $02804E
@@ -1663,7 +1257,7 @@ org $02E43A
 org $02E574
 	RTS ;another here
 
-org $1DCD4B ; freespace at bank $1D
+org freespace_1d ; freespace at bank $1D
 
 pushpc
 
@@ -2098,308 +1692,6 @@ cpu_meter:
 	RTI
 endif
 
-;CODE_80BB6A:
-;LDY.W #$5992                         ;80BB6A|A09259  |      ;  
-;LDA.W $1E3C                          ;80BB6D|AD3C1E  |051E3C;  
-;CMP.W #$0063                         ;80BB70|C96300  |      ;  
-;BCC CODE_80BB78                      ;80BB73|9003    |80BB78;  
-;LDA.W #$0063                         ;80BB75|A96300  |      ;  
-;CODE_80BB78:
-;STA.W $4204                          ;80BB78|8D0442  |054204;  
-;SEP #$20                             ;80BB7B|E220    |      ;  
-;LDA.B #$0A                           ;80BB7D|A90A    |      ;  
-;STA.W $4206                          ;80BB7F|8D0642  |054206;  
-;REP #$20                             ;80BB82|C220    |      ;  
-;JSL.L CODE_808D41                    ;80BB84|22418D00|008D41;  
-;LDA.W $4214                          ;80BB88|AD1442  |054214;  
-;AND.W #$00FF                         ;80BB8B|29FF00  |      ;  
-;INC A                                ;80BB8E|1A      |      ;  
-;ORA.W #$2000                         ;80BB8F|090020  |      ;  
-;JSL.L CODE_808DA5                    ;80BB92|22A58D00|008DA5;  
-;LDA.W $4216                          ;80BB96|AD1642  |054216;  
-;AND.W #$00FF                         ;80BB99|29FF00  |      ;  
-;INC A                                ;80BB9C|1A      |      ;  
-;ORA.W #$2000                         ;80BB9D|090020  |      ;  
-;JSL.L CODE_808DA5                    ;80BBA0|22A58D00|008DA5;  
-;JSL.L CODE_808DB0                    ;80BBA4|22B08D00|008DB0;  
-;RTS                                  ;80BBA8|60      |      ;  
-
-; lives counter on options
-org $00BB6A
-	LDY #$0001
-	STY $2250
-	LDY #$5992
-	LDA $7E3C
-	CMP #$0063
-	BCC +
-	LDA #$0063
-+	STA $2251
-	LDA #$000A
-	STA $2253
-	JSL $008D41
-	LDA $2306
-	INC
-	ORA #$2000
-	JSL $008DA5
-	LDA $2308
-	INC
-	ORA #$2000
-	JSL $008DA5
-	JSL $008DB0
-	RTS
-	
-;print pc
-assert pc() <= $00BBA9
-
-macro original_9()
-  CODE_80B8ED: STA.B $FA                            ;80B8ED|85FA    |0000FA;  
-	       PHX                                  ;80B8EF|DA      |      ;  
-	       JSL.L CODE_808D41                    ;80B8F0|22418D00|008D41;  
-	       PLX                                  ;80B8F4|FA      |      ;  
-	       LDA.B $00,X                          ;80B8F5|B500    |000000;  
-	       BPL CODE_80B8FC                      ;80B8F7|1003    |80B8FC;  
-	       LDA.W #$0000                         ;80B8F9|A90000  |      ;  
-  CODE_80B8FC: STA.W $4204                          ;80B8FC|8D0442  |054204;  
-	       SEP #$20                             ;80B8FF|E220    |      ;  
-	       LDA.B #$0A                           ;80B901|A90A    |      ;  
-	       STA.W $4206                          ;80B903|8D0642  |054206;  
-	       NOP                                  ;80B906|EA      |      ;  
-	       NOP                                  ;80B907|EA      |      ;  
-	       NOP                                  ;80B908|EA      |      ;  
-	       NOP                                  ;80B909|EA      |      ;  
-	       NOP                                  ;80B90A|EA      |      ;  
-	       NOP                                  ;80B90B|EA      |      ;  
-	       NOP                                  ;80B90C|EA      |      ;  
-	       NOP                                  ;80B90D|EA      |      ;  
-	       REP #$20                             ;80B90E|C220    |      ;  
-	       LDA.W $4214                          ;80B910|AD1442  |054214;  
-	       JSL.L CODE_80B927                    ;80B913|2227B900|00B927;  
-	       LDA.W $4216                          ;80B917|AD1642  |054216;  
-	       JSL.L CODE_80B927                    ;80B91A|2227B900|00B927;  
-	       JSL.L CODE_808DB0                    ;80B91E|22B08D00|008DB0;  
-	       RTL                                  ;80B922|6B      |      ;  
-endmacro
-
-; lives counter on start/clear screen
-	
-org $00B8F5
-	LDA #$0001
-	STA $2250
-	LDA $00,X
-	BPL +
-	LDA #$0000
-+	STA $2251
-	LDA #$000A
-	STA $2253
-	BRA +
-	NOP #3
-+
-assert pc() == $00B910
-;print pc
-
-org $00B910
-	LDA $2306
-org $00B917
-	LDA $2308
-	
-; more div... signed, rewrite to SA-1 signness
-; These are the turtle paws.
-	
-macro original_10()
-  CODE_80F5D9: STZ.B $00                            ;80F5D9|6400    |000000;  
-	       SEC                                  ;80F5DB|38      |      ;  
-	       LDA.W $030A                          ;80F5DC|AD0A03  |05030A;  
-	       SBC.W $03CA                          ;80F5DF|EDCA03  |0503CA;  
-	       BPL CODE_80F5E9                      ;80F5E2|1005    |80F5E9;  
-	       EOR.W #$FFFF                         ;80F5E4|49FFFF  |      ;  
-	       INC.B $00                            ;80F5E7|E600    |000000;  
-  CODE_80F5E9: AND.W #$00FF                         ;80F5E9|29FF00  |      ;  
-	       STA.W $4204                          ;80F5EC|8D0442  |054204;  
-	       SEP #$20                             ;80F5EF|E220    |      ;  
-	       LDA.B #$03                           ;80F5F1|A903    |      ;  
-	       STA.W $4206                          ;80F5F3|8D0642  |054206;  
-	       REP #$20                             ;80F5F6|C220    |      ;  
-	       STZ.B $02                            ;80F5F8|6402    |000002;  
-	       SEC                                  ;80F5FA|38      |      ;  
-	       LDA.W $030E                          ;80F5FB|AD0E03  |05030E;  
-	       SBC.W $03CE                          ;80F5FE|EDCE03  |0503CE;  
-	       BPL CODE_80F608                      ;80F601|1005    |80F608;  
-	       EOR.W #$FFFF                         ;80F603|49FFFF  |      ;  
-	       INC.B $02                            ;80F606|E602    |000002;  
-  CODE_80F608: AND.W #$00FF                         ;80F608|29FF00  |      ;  
-	       PHA                                  ;80F60B|48      |      ;  
-	       LDA.W $4214                          ;80F60C|AD1442  |054214;  
-	       LDY.B $00                            ;80F60F|A400    |000000;  
-	       BNE CODE_80F616                      ;80F611|D003    |80F616;  
-	       EOR.W #$FFFF                         ;80F613|49FFFF  |      ;  
-  CODE_80F616: STA.B $00                            ;80F616|8500    |000000;  
-	       CLC                                  ;80F618|18      |      ;  
-	       LDA.W $030A                          ;80F619|AD0A03  |05030A;  
-	       ADC.B $00                            ;80F61C|6500    |000000;  
-	       ADC.W #$0000                         ;80F61E|690000  |      ;  
-	       STA.W $034A                          ;80F621|8D4A03  |05034A;  
-	       CLC                                  ;80F624|18      |      ;  
-	       ADC.B $00                            ;80F625|6500    |000000;  
-	       ADC.W #$0000                         ;80F627|690000  |      ;  
-	       STA.W $038A                          ;80F62A|8D8A03  |05038A;  
-	       PLA                                  ;80F62D|68      |      ;  
-	       STA.W $4204                          ;80F62E|8D0442  |054204;  
-	       SEP #$20                             ;80F631|E220    |      ;  
-	       LDA.B #$03                           ;80F633|A903    |      ;  
-	       STA.W $4206                          ;80F635|8D0642  |054206;  
-	       REP #$20                             ;80F638|C220    |      ;  
-	       NOP                                  ;80F63A|EA      |      ;  
-	       NOP                                  ;80F63B|EA      |      ;  
-	       NOP                                  ;80F63C|EA      |      ;  
-	       NOP                                  ;80F63D|EA      |      ;  
-	       NOP                                  ;80F63E|EA      |      ;  
-	       NOP                                  ;80F63F|EA      |      ;  
-	       NOP                                  ;80F640|EA      |      ;  
-	       NOP                                  ;80F641|EA      |      ;  
-	       LDA.W $4214                          ;80F642|AD1442  |054214;  
-	       LDY.B $02                            ;80F645|A402    |000002;  
-	       BNE CODE_80F64C                      ;80F647|D003    |80F64C;  
-	       EOR.W #$FFFF                         ;80F649|49FFFF  |      ;  
-  CODE_80F64C: STA.B $02                            ;80F64C|8502    |000002;  
-	       CLC                                  ;80F64E|18      |      ;  
-	       LDA.W $030E                          ;80F64F|AD0E03  |05030E;  
-	       ADC.B $02                            ;80F652|6502    |000002;  
-	       STA.W $034E                          ;80F654|8D4E03  |05034E;  
-	       CLC                                  ;80F657|18      |      ;  
-	       ADC.B $02                            ;80F658|6502    |000002;  
-	       STA.W $038E                          ;80F65A|8D8E03  |05038E;  
-	       RTS                                  ;80F65D|60      |      ;  
-endmacro
-
-org $00F5D9
-	LDA #$0001
-	STA $2250
-	
-	LDA $630A
-	SEC
-	SBC $63CA
-	EOR #$FFFF
-	INC
-	STA $2251
-	
-	LDA #$0003
-	STA $2253
-	
-	CLC
-	LDA $2306
-	STA $00
-	
-	LDA $630A
-	ADC $00
-	ADC #$0000
-	STA $634A
-	CLC
-	ADC $00
-	ADC #$0000
-	STA $638A
-	
-	LDA $630E
-	SEC
-	SBC $63CE
-	EOR #$FFFF
-	INC
-	STA $2251
-	
-	LDA #$0003
-	STA $2253
-	
-	CLC
-	LDA $2306
-	STA $02
-	
-	LDA $630E
-	ADC $02
-	STA $634E
-	CLC
-	ADC $02
-	STA $638E
-	RTS
-	
-	NOP #40
-print pc
-assert pc() == $00F65E
-
-org $00FF48
-	LDA #$0002
-	STA $2250
-	LDA $08
-	STA $2251
-	STA $2253
-	LDA $0A
-	STA $2251
-	STA $2253
-	XBA
-	LDA $2306
-	STA $10
-	BRA +
-	NOP #11
-+
-print pc
-assert pc() == $00FF71
-
-; x^2+y^2
-macro original_11()
-  CODE_80FF48: SEP #$20                             ;80FF48|E220    |      ;  
-	       LDA.B $08                            ;80FF4A|A508    |000008;  
-	       STA.W $4202                          ;80FF4C|8D0242  |054202;  
-	       STA.W $4203                          ;80FF4F|8D0342  |054203;  
-	       REP #$20                             ;80FF52|C220    |      ;  
-	       NOP                                  ;80FF54|EA      |      ;  
-	       NOP                                  ;80FF55|EA      |      ;  
-	       NOP                                  ;80FF56|EA      |      ;  
-	       LDA.W $4216                          ;80FF57|AD1642  |054216;  
-	       STA.B $0C                            ;80FF5A|850C    |00000C;  
-	       SEP #$20                             ;80FF5C|E220    |      ;  
-	       LDA.B $0A                            ;80FF5E|A50A    |00000A;  
-	       STA.W $4202                          ;80FF60|8D0242  |054202;  
-	       STA.W $4203                          ;80FF63|8D0342  |054203;  
-	       REP #$20                             ;80FF66|C220    |      ;  
-	       NOP                                  ;80FF68|EA      |      ;  
-	       NOP                                  ;80FF69|EA      |      ;  
-	       NOP                                  ;80FF6A|EA      |      ;  
-	       LDA.W $4216                          ;80FF6B|AD1642  |054216;  
-	       CLC                                  ;80FF6E|18      |      ;  
-	       ADC.B $0C                            ;80FF6F|650C    |00000C;  
-	       STA.B $10                            ;80FF71|8510    |000010;  
-endmacro
-
-
-; 00e786 lda #$00ff             A:014a X:0900 Y:0060 S:37e7 D:6000 DB:05 nvmxdIzc V:  5 H:248 F:22
-; 00e789 sta $4204     [054204] A:00ff X:0900 Y:0060 S:37e7 D:6000 DB:05 nvmxdIzc V:  5 H:248 F:22
-; 00e78c pla                    A:00ff X:0900 Y:0060 S:37e7 D:6000 DB:05 nvmxdIzc V:  5 H:248 F:22
-; 00e78d sep #$20               A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvmxdIzc V:  5 H:248 F:22
-; 00e78f sta $4206     [054206] A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e792 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e793 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e794 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e795 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e796 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e797 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e798 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e799 nop                    A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e79a rep #$20               A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvMxdIzc V:  5 H:248 F:22
-; 00e79c lda $4214     [054214] A:014a X:0900 Y:0060 S:37e9 D:6000 DB:05 nvmxdIzc V:  5 H:248 F:22
-
-; big brain time
-
-org $e786
-	lda #$0001
-	sta $2250
-	lda #$00ff
-	sta $2251
-	pla
-	and #$00ff
-	sta $2253
-	bra +
-	nop
-+	lda $2306
-print pc
-assert pc() == $00e79f
 
 ; top-view on mode 7 levels
 
@@ -2542,8 +1834,3 @@ CLC                                  ;83E64D|18      |      ;
 ADC.W $4214                          ;83E64E|6D1442  |054214;  
 STA.B $02                            ;83E651|8502    |000002;  
 endmacro
-
-; Make the OVNI wait more 35 frames before attacking
-
-org $05A7BD
-	dw $00B4+35
