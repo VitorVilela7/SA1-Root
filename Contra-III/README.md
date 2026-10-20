@@ -1,5 +1,5 @@
 # SA-1 Root: Contra III
-Version 1.2, released 2022-09-19
+Version 1.3, released 2026-10-20
 
 Contra III: The Alien Wars is the third Contra game made by Konami and an amazing
 cinematic shooting game.
@@ -24,11 +24,9 @@ You can also patch the .asm files directly using
 For more information on how to apply ROM patches, see this SnesLab
 article: https://sneslab.net/wiki/How_to_apply_ROM_patches
 
-It works only on the american version of Contra III. Contra Spirits and Super
-Probotector **does not** work because both games were recompiled and its codes are
-different compared to the american version. Depending on the demand I might
-do them eventually, but they will likely require the same amount of effort as
-a new game conversion.
+It works with the American (Contra III: The Alien Wars), European (Super Probotector:
+Alien Rebels) and Japanese (Contra Spirits) versions. The BPS files are Contra-III-USA.bps,
+Contra-III-EUR.bps and Contra-III-JPN.bps.
 
 Expected checksums:
 
@@ -38,8 +36,26 @@ Expected checksums:
 * SHA256: A93EA87FC835C530B5135C5294433D15EEF6DBF656144B387E89AC19CF864996
 
 #### After patching
-* CRC32: FF3EE176
-* SHA256: 5D2A0ED336E2681D694395A2183D82BEDCAC93B612CBFB5F543DA80A001E861D
+* CRC32: 8F759946
+* SHA256: FF2A2703EC43AF50ECA095D3559CEDAE89DE54DE5311D70EB0B30D896F69C5F1
+
+### European Version:
+#### Before patching:
+* CRC32: 420BD975
+* SHA256: 2B1CA521975C3010650FD2055BE8C6B964EA4EFF765AD03198AC71995285FEE7
+
+#### After patching
+* CRC32: C46A34B9
+* SHA256: 432FC337B0101EAE5411106147FBC26F0F7656333595B8BEF0D3CEB43C0D0AD5
+
+### Japanese Version:
+#### Before patching:
+* CRC32: B8CFE377
+* SHA256: 61F42097EF04B8C0605FAD8F994E8ED14A7A6408ABF33A02B9A71B5049EFCA21
+
+#### After patching
+* CRC32: 9293E5BF
+* SHA256: 2DFFAA250A1A09D3129830EE41325CBC6E52BFECC157D7C4BDDAE6CAFD7D64C5
 
 ## Compatibility
 

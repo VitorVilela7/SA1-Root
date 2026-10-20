@@ -5,7 +5,7 @@
  \___ \ / /\ \______| | |  _  // _ \ / _ \| __|
  ____) / ____ \     | | | | \ \ (_) | (_) | |_ 
 |_____/_/    \_\    |_| |_|  \_\___/ \___/ \__|
-    Version 1.9              by Vitor Vilela
+    Version 1.10             by Vitor Vilela
 ```
 
 SA-1 Root is a project for enabling and accelerating games using the SA-1 chip.
@@ -13,7 +13,7 @@ It's a pack of patches that optimizes the game to the maximum possible keeping
 high hardware compatibility and keeping most of the game aspects intact.
 
 So far the following games are available:
-* [Contra III](Contra-III) v1.2
+* [Contra III](Contra-III) v1.3
 * [Gradius III](Gradius-III) v1.7
 * [Race Drivin'](Race-Drivin) v1.1
 * [Super R-Type](Super-R-Type) v1.3
